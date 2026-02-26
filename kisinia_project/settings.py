@@ -84,21 +84,17 @@ WSGI_APPLICATION = 'kisinia_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASE_URL = os.getenv('DATABASE_URL')
+DATABASE_URL = os.getenv(
+    'DATABASE_URL',
+    'postgresql://neondb_owner:npg_mwoEn5Jdgrk9@ep-misty-art-ai0c9ci4-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+)
 
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
-    }
-elif os.getenv('RENDER'):
-    raise RuntimeError('DATABASE_URL is required on Render. Set your Neon PostgreSQL URL in Render environment variables.')
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+if not DATABASE_URL:
+    raise RuntimeError('DATABASE_URL is required.')
+
+DATABASES = {
+    'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
+}
 
 
 # Password validation
