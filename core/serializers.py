@@ -116,7 +116,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         validated_data.pop('password_confirm')
         password = validated_data.pop('password')
         role = validated_data.pop('role')
-        phone = validated_data.pop('phone')
+        phone = validated_data.pop('phone', '')
 
         try:
             # Temporarily disable automatic profile creation
