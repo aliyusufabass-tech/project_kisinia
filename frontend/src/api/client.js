@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_HOST = 'http://127.0.0.1:8000';
+const API_HOST = (import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000').replace(/\/+$/, '');
 const BASE_URL = API_HOST + '/api';
 
 // Build absolute image URL from serializer path or full URL
