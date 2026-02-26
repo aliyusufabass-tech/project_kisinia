@@ -244,7 +244,14 @@ def register(request):
     """User registration endpoint"""
     serializer = RegistrationSerializer(data=request.data)
     if serializer.is_valid():
-        user = serializer.save()
+        try:
+            user = serializer.save()
+        except Exception as exc:
+            return Response(
+                {'detail': f'Registration failed: {str(exc)}'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        profile, _ = UserProfile.objects.get_or_create(user=user)
         return Response({
             'message': 'User registered successfully',
             'user': {
@@ -253,8 +260,8 @@ def register(request):
                 'email': user.email,
                 'first_name': user.first_name,
                 'last_name': user.last_name,
-                'role': user.profile.role,
-                'phone': user.profile.phone
+                'role': profile.role,
+                'phone': profile.phone
             }
         }, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

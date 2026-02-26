@@ -115,7 +115,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         """Create user and profile"""
         validated_data.pop('password_confirm')
         password = validated_data.pop('password')
-        role = validated_data.pop('role')
+        role = validated_data.pop('role', 'CUSTOMER')
         phone = validated_data.pop('phone', '')
 
         try:
