@@ -13,6 +13,6 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: DATABASE_URL
-        sync: false
+        value: "postgresql://neondb_owner:npg_mwoEn5Jdgrk9@ep-misty-art-ai0c9ci4-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
       - key: ALLOWED_HOSTS
         value: project-kisinia.onrender.com
