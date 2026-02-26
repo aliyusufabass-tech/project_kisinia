@@ -3,8 +3,8 @@ services:
     name: project-kisinia
     env: python
     plan: free
-    buildCommand: "pip install -r requirement.txt && python manage.py migrate"
-    startCommand: "python manage.py runserver 0.0.0.0:$PORT"
+    buildCommand: "pip install -r requirement.txt"
+    startCommand: "python manage.py migrate && python manage.py runserver 0.0.0.0:$PORT"
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.8

@@ -90,17 +90,15 @@ if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
     }
+elif os.getenv('RENDER'):
+    raise RuntimeError('DATABASE_URL is required on Render. Set your Neon PostgreSQL URL in Render environment variables.')
 else:
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kisiniadb', 
-        'USER': 'postgres',
-        'PASSWORD': 'Yusuf@24',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
 
 
 # Password validation
