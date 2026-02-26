@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: project-kisinia
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirement.txt && python manage.py migrate"
+    startCommand: "python manage.py runserver 0.0.0.0:$PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
