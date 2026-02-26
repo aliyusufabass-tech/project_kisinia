@@ -1,0 +1,1828 @@
+[
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "admin",
+      "model": "logentry"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "auth",
+      "model": "group"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "auth",
+      "model": "permission"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "auth",
+      "model": "user"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "contenttypes",
+      "model": "contenttype"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "sessions",
+      "model": "session"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "restaurants",
+      "model": "restaurant"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "restaurants",
+      "model": "visinia"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "customers",
+      "model": "customer"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "orders",
+      "model": "order"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "core",
+      "model": "booking"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "core",
+      "model": "bookingitem"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "core",
+      "model": "restaurant"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "core",
+      "model": "userprofile"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "app_label": "core",
+      "model": "visinia"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "28wj3l6e89tcgqa5tj2uuo9uwe03kcix",
+    "fields": {
+      "session_data": ".eJxVjEsOwjAMBe-SNYpapXZqluw5Q2THCS2gROpnVXF3WqkL2L6ZeZsJvC5DWOc0hVHN1bTm8rsJx1cqB9Anl0e1sZZlGsUeij3pbO9V0_t2un8HA8_DXmOWFhohEMqZuGEn0KMqAhD2mZwjZd_6HcdOpc8Ys8cOoEvkMIH5fAHtrDgH:1vmwLy:dpIf8Zn_1-YIFpafcly8gxlqf9uiG1hMv3pIhJROahA",
+      "expire_date": "2026-02-16T16:00:42.435Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "40kbvxc2oxfj6034r0taqnrf1yx1uat3",
+    "fields": {
+      "session_data": ".eJxVjEsOwjAMBe-SNYpapXZqluw5Q2THCS2gROpnVXF3WqkL2L6ZeZsJvC5DWOc0hVHN1bTm8rsJx1cqB9Anl0e1sZZlGsUeij3pbO9V0_t2un8HA8_DXmOWFhohEMqZuGEn0KMqAhD2mZwjZd_6HcdOpc8Ys8cOoEvkMIH5fAHtrDgH:1vfEZH:i71YzjZwN9E5ERBoZkTb-S1JwtHuCdcQcIu2-4sBVqs",
+      "expire_date": "2026-01-26T09:50:35.176Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "gliw4bzqmauvb14batk17rnl8c93lyei",
+    "fields": {
+      "session_data": ".eJxVjEsOwjAMBe-SNYpapXZqluw5Q2THCS2gROpnVXF3WqkL2L6ZeZsJvC5DWOc0hVHN1bTm8rsJx1cqB9Anl0e1sZZlGsUeij3pbO9V0_t2un8HA8_DXmOWFhohEMqZuGEn0KMqAhD2mZwjZd_6HcdOpc8Ys8cOoEvkMIH5fAHtrDgH:1vfEZG:Tk-KKxTHeXU-ijZToc5RuTN1RyHgof1DbqDVfIcsG4A",
+      "expire_date": "2026-01-26T09:50:34.489Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "pxvb66w5aoxzm747nbn0zwkpdxgbloo9",
+    "fields": {
+      "session_data": ".eJxVjEsOwjAMBe-SNYpapXZqluw5Q2THCS2gROpnVXF3WqkL2L6ZeZsJvC5DWOc0hVHN1bTm8rsJx1cqB9Anl0e1sZZlGsUeij3pbO9V0_t2un8HA8_DXmOWFhohEMqZuGEn0KMqAhD2mZwjZd_6HcdOpc8Ys8cOoEvkMIH5fAHtrDgH:1volV7:g-5tmSj5gpu6f4I50tokBFO9HpugojjP5l8ipY2SDec",
+      "expire_date": "2026-02-21T16:49:41.106Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "sg12b2dpv32t6knm9863evd7hgy38v55",
+    "fields": {
+      "session_data": ".eJxVjDsOwyAQBe9CHaEFzC9lep8BLbAEJxGWjF1FuXuE5CJp38y8Nwt47DUcnbawZHZlgl1-t4jpSW2A_MB2X3la274tkQ-Fn7Tzec30up3u30HFXketnEUlwEkNClBREjZ7bScnE1lKWsto3SRAlQIUUzbOA2AuxgiF1rPPF8GYNz4:1vpku6:oMn3udsbdwEME3K5QRab8eG8IBCoYlV9-7v9NTmKaaw",
+      "expire_date": "2026-02-24T10:23:34.000Z"
+    }
+  },
+  {
+    "model": "core.visinia",
+    "pk": 1,
+    "fields": {
+      "restaurant": 1,
+      "name": "SEAFOOD KISINIA",
+      "description": "test",
+      "price": "30000.00",
+      "image": "visiinias/food-bg.jpg.jpg",
+      "is_available": true,
+      "created_at": "2026-02-08T11:45:08.143Z",
+      "updated_at": "2026-02-08T11:45:08.143Z"
+    }
+  },
+  {
+    "model": "core.visinia",
+    "pk": 2,
+    "fields": {
+      "restaurant": 3,
+      "name": "KISINIA CHA MZUKA",
+      "description": "kuku,mishkaki ya nyama and chips",
+      "price": "12000.00",
+      "image": "visiinias/kisinia_cha_mzuka.png",
+      "is_available": true,
+      "created_at": "2026-02-10T09:33:06.854Z",
+      "updated_at": "2026-02-10T09:33:06.854Z"
+    }
+  },
+  {
+    "model": "core.visinia",
+    "pk": 3,
+    "fields": {
+      "restaurant": 3,
+      "name": "KISINIA CHA KUJIRAMBA",
+      "description": "sekela,lemon,mishkaki ya nyama,mishkaki ya kuku, sausage and chips",
+      "price": "24000.00",
+      "image": "visiinias/kisinia_cha_kujiramba.png",
+      "is_available": true,
+      "created_at": "2026-02-10T09:41:01.568Z",
+      "updated_at": "2026-02-10T09:41:01.568Z"
+    }
+  },
+  {
+    "model": "core.visinia",
+    "pk": 4,
+    "fields": {
+      "restaurant": 3,
+      "name": "KISINIA CHA POAZ",
+      "description": "sekela ,lemon, peri peri,mishkaki ya nyama, mishkaki ya kuku sausage and chips",
+      "price": "32000.00",
+      "image": "visiinias/kisinia_cha_poaz.png",
+      "is_available": true,
+      "created_at": "2026-02-10T10:02:06.098Z",
+      "updated_at": "2026-02-10T10:02:06.098Z"
+    }
+  },
+  {
+    "model": "core.visinia",
+    "pk": 5,
+    "fields": {
+      "restaurant": 3,
+      "name": "KISINIA CHA KUSIBA",
+      "description": "kuku, mishkaki nyama, sausage and chips",
+      "price": "18000.00",
+      "image": "visiinias/kisinia_cha_kushiba.png",
+      "is_available": true,
+      "created_at": "2026-02-10T10:06:10.385Z",
+      "updated_at": "2026-02-10T10:06:10.385Z"
+    }
+  },
+  {
+    "model": "core.visinia",
+    "pk": 6,
+    "fields": {
+      "restaurant": 3,
+      "name": "KISINIA CHA WASHKAJI",
+      "description": "sekela,lemon,peri,grilled chicken,mishkaki,sausages,garlic and butter naan with chips",
+      "price": "45000.00",
+      "image": "visiinias/kisinia_cha_washkaji.png",
+      "is_available": true,
+      "created_at": "2026-02-11T17:23:55.190Z",
+      "updated_at": "2026-02-11T17:23:55.190Z"
+    }
+  },
+  {
+    "model": "core.bookingitem",
+    "pk": 1,
+    "fields": {
+      "booking": 1,
+      "visinia": 4,
+      "quantity": 1,
+      "price": "32000.00"
+    }
+  },
+  {
+    "model": "core.bookingitem",
+    "pk": 2,
+    "fields": {
+      "booking": 1,
+      "visinia": 3,
+      "quantity": 2,
+      "price": "24000.00"
+    }
+  },
+  {
+    "model": "core.bookingitem",
+    "pk": 3,
+    "fields": {
+      "booking": 2,
+      "visinia": 5,
+      "quantity": 3,
+      "price": "18000.00"
+    }
+  },
+  {
+    "model": "core.bookingitem",
+    "pk": 4,
+    "fields": {
+      "booking": 3,
+      "visinia": 6,
+      "quantity": 1,
+      "price": "45000.00"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add log entry",
+      "content_type": [
+        "admin",
+        "logentry"
+      ],
+      "codename": "add_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change log entry",
+      "content_type": [
+        "admin",
+        "logentry"
+      ],
+      "codename": "change_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete log entry",
+      "content_type": [
+        "admin",
+        "logentry"
+      ],
+      "codename": "delete_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view log entry",
+      "content_type": [
+        "admin",
+        "logentry"
+      ],
+      "codename": "view_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add permission",
+      "content_type": [
+        "auth",
+        "permission"
+      ],
+      "codename": "add_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change permission",
+      "content_type": [
+        "auth",
+        "permission"
+      ],
+      "codename": "change_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete permission",
+      "content_type": [
+        "auth",
+        "permission"
+      ],
+      "codename": "delete_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view permission",
+      "content_type": [
+        "auth",
+        "permission"
+      ],
+      "codename": "view_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add group",
+      "content_type": [
+        "auth",
+        "group"
+      ],
+      "codename": "add_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change group",
+      "content_type": [
+        "auth",
+        "group"
+      ],
+      "codename": "change_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete group",
+      "content_type": [
+        "auth",
+        "group"
+      ],
+      "codename": "delete_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view group",
+      "content_type": [
+        "auth",
+        "group"
+      ],
+      "codename": "view_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add user",
+      "content_type": [
+        "auth",
+        "user"
+      ],
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change user",
+      "content_type": [
+        "auth",
+        "user"
+      ],
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete user",
+      "content_type": [
+        "auth",
+        "user"
+      ],
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view user",
+      "content_type": [
+        "auth",
+        "user"
+      ],
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add content type",
+      "content_type": [
+        "contenttypes",
+        "contenttype"
+      ],
+      "codename": "add_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change content type",
+      "content_type": [
+        "contenttypes",
+        "contenttype"
+      ],
+      "codename": "change_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete content type",
+      "content_type": [
+        "contenttypes",
+        "contenttype"
+      ],
+      "codename": "delete_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view content type",
+      "content_type": [
+        "contenttypes",
+        "contenttype"
+      ],
+      "codename": "view_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add session",
+      "content_type": [
+        "sessions",
+        "session"
+      ],
+      "codename": "add_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change session",
+      "content_type": [
+        "sessions",
+        "session"
+      ],
+      "codename": "change_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete session",
+      "content_type": [
+        "sessions",
+        "session"
+      ],
+      "codename": "delete_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view session",
+      "content_type": [
+        "sessions",
+        "session"
+      ],
+      "codename": "view_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add restaurant",
+      "content_type": [
+        "restaurants",
+        "restaurant"
+      ],
+      "codename": "add_restaurant"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change restaurant",
+      "content_type": [
+        "restaurants",
+        "restaurant"
+      ],
+      "codename": "change_restaurant"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete restaurant",
+      "content_type": [
+        "restaurants",
+        "restaurant"
+      ],
+      "codename": "delete_restaurant"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view restaurant",
+      "content_type": [
+        "restaurants",
+        "restaurant"
+      ],
+      "codename": "view_restaurant"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add visinia",
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "codename": "add_visinia"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change visinia",
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "codename": "change_visinia"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete visinia",
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "codename": "delete_visinia"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view visinia",
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "codename": "view_visinia"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add customer",
+      "content_type": [
+        "customers",
+        "customer"
+      ],
+      "codename": "add_customer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change customer",
+      "content_type": [
+        "customers",
+        "customer"
+      ],
+      "codename": "change_customer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete customer",
+      "content_type": [
+        "customers",
+        "customer"
+      ],
+      "codename": "delete_customer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view customer",
+      "content_type": [
+        "customers",
+        "customer"
+      ],
+      "codename": "view_customer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add order",
+      "content_type": [
+        "orders",
+        "order"
+      ],
+      "codename": "add_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change order",
+      "content_type": [
+        "orders",
+        "order"
+      ],
+      "codename": "change_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete order",
+      "content_type": [
+        "orders",
+        "order"
+      ],
+      "codename": "delete_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view order",
+      "content_type": [
+        "orders",
+        "order"
+      ],
+      "codename": "view_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add restaurant",
+      "content_type": [
+        "core",
+        "restaurant"
+      ],
+      "codename": "add_restaurant"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change restaurant",
+      "content_type": [
+        "core",
+        "restaurant"
+      ],
+      "codename": "change_restaurant"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete restaurant",
+      "content_type": [
+        "core",
+        "restaurant"
+      ],
+      "codename": "delete_restaurant"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view restaurant",
+      "content_type": [
+        "core",
+        "restaurant"
+      ],
+      "codename": "view_restaurant"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add booking item",
+      "content_type": [
+        "core",
+        "bookingitem"
+      ],
+      "codename": "add_bookingitem"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change booking item",
+      "content_type": [
+        "core",
+        "bookingitem"
+      ],
+      "codename": "change_bookingitem"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete booking item",
+      "content_type": [
+        "core",
+        "bookingitem"
+      ],
+      "codename": "delete_bookingitem"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view booking item",
+      "content_type": [
+        "core",
+        "bookingitem"
+      ],
+      "codename": "view_bookingitem"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add booking",
+      "content_type": [
+        "core",
+        "booking"
+      ],
+      "codename": "add_booking"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change booking",
+      "content_type": [
+        "core",
+        "booking"
+      ],
+      "codename": "change_booking"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete booking",
+      "content_type": [
+        "core",
+        "booking"
+      ],
+      "codename": "delete_booking"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view booking",
+      "content_type": [
+        "core",
+        "booking"
+      ],
+      "codename": "view_booking"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add user profile",
+      "content_type": [
+        "core",
+        "userprofile"
+      ],
+      "codename": "add_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change user profile",
+      "content_type": [
+        "core",
+        "userprofile"
+      ],
+      "codename": "change_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete user profile",
+      "content_type": [
+        "core",
+        "userprofile"
+      ],
+      "codename": "delete_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view user profile",
+      "content_type": [
+        "core",
+        "userprofile"
+      ],
+      "codename": "view_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add visinia",
+      "content_type": [
+        "core",
+        "visinia"
+      ],
+      "codename": "add_visinia"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change visinia",
+      "content_type": [
+        "core",
+        "visinia"
+      ],
+      "codename": "change_visinia"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete visinia",
+      "content_type": [
+        "core",
+        "visinia"
+      ],
+      "codename": "delete_visinia"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view visinia",
+      "content_type": [
+        "core",
+        "visinia"
+      ],
+      "codename": "view_visinia"
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$saNEwLc0mc8XwmcfbYkLfD$rIg9ClVaDGVq5AAT81EDLkGZQ25bPBT8EadEhBDfIFU=",
+      "last_login": "2026-02-07T16:54:59.693Z",
+      "is_superuser": true,
+      "username": "maiyyah",
+      "first_name": "",
+      "last_name": "",
+      "email": "maiyyah@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2026-01-12T09:49:24.164Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$KvTUeHBmd2ggl2tiT6RLQc$c8s5jOgNE8ddaCSLTZMHa4Xl6R3ze6rqLpO3qKO6wGw=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "yamaan",
+      "first_name": "",
+      "last_name": "",
+      "email": "yamaan@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-17T07:51:18.566Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$BxdIRY6TJe97UBRZOOaFT1$LTr7LaxaCWGE5Qrsdk6H5HvRYCpoWrBGCuIDvxYBlGw=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "maheerl",
+      "first_name": "",
+      "last_name": "",
+      "email": "maher@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-19T07:19:05.031Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$I2RS2qof5quvWS4BO0i2FM$IBbvkDutWb3yR59CwPtjUieUVn4+BM2NBW3tcgi+GHM=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2026-01-19T07:42:27.622Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$QMXbemvf1A5cC3WaE9U4Iw$RlpYQ0HFAzsxQUXMelxZDgJm+gKZnBaaipE2LpD2QTo=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "owner_a",
+      "first_name": "Restaurant",
+      "last_name": "Owner A",
+      "email": "ownera@kisinia.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-02-08T11:11:33.166Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$6Z00PGsRal37qfvp0blNfd$w7aYV52CRHDI4Uu3HKLGoPb/TQPBuLIp7ipP9+o2T80=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "customer_b",
+      "first_name": "Customer",
+      "last_name": "B",
+      "email": "customerb@kisinia.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-02-08T11:11:34.660Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$AOKzYcbYcj0CLAf6cpSwh5$wTIvjxMHpJzPZVqp1t7F9DI2zjgbQUd/3qfIgoKbDUk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "customer_c",
+      "first_name": "Customer",
+      "last_name": "C",
+      "email": "customerc@kisinia.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-02-08T11:11:36.046Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$UkAE7aHvARoNL3lEZgYVQQ$bA+eexxFz+vddvDBtULL689dN+H/tuRyRAX7VQeN4AY=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "shmuck",
+      "first_name": "",
+      "last_name": "",
+      "email": "shmuck@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2026-02-08T11:58:46.657Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$RAI0yTjrHHXBAzD0MnEd7d$YWsjbEzIOmPMz57f4DCxxbZXlNR/Fo+N7pT1lbS9HrU=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "code",
+      "first_name": "",
+      "last_name": "",
+      "email": "code@g.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2026-02-21T09:25:36.820Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "core.restaurant",
+    "pk": 1,
+    "fields": {
+      "owner": [
+        "owner_a"
+      ],
+      "name": "Taste Me Desserts & Cafe",
+      "description": "test",
+      "address": "test",
+      "phone": "0776221122",
+      "logo": "",
+      "is_active": true,
+      "created_at": "2026-02-08T11:43:35.180Z",
+      "updated_at": "2026-02-08T11:43:35.180Z"
+    }
+  },
+  {
+    "model": "core.restaurant",
+    "pk": 2,
+    "fields": {
+      "owner": [
+        "shmuck"
+      ],
+      "name": "Taste Me Desserts & CafΘ",
+      "description": "Taste Me Zanzibar Restaurant Description\r\nTaste Me Desserts & CafΘ in Zanzibar City offers a unique dining experience with a focus on local and Indian cuisine. The restaurant is known for its bbq platters for large groups, chicken burger with fries, cakes, waffles, and ice cream. It also features a small kids' play area, making it a great place for families and friends to dine together. The staff is described as friendly, and the place is praised for its good food and affordable prices. However, some reviews mention slow service and unprofessional staff, advising tourists to choose different places for a better experience.",
+      "address": "Mbweni Road, Zanzibar City 00255",
+      "phone": "+255 776 056 580",
+      "logo": "restaurants/taste_me.jpeg",
+      "is_active": true,
+      "created_at": "2026-02-10T08:12:28.852Z",
+      "updated_at": "2026-02-10T08:33:57.976Z"
+    }
+  },
+  {
+    "model": "core.restaurant",
+    "pk": 3,
+    "fields": {
+      "owner": [
+        "owner_a"
+      ],
+      "name": "Poa'zz Grill N Restaurant",
+      "description": "Culinary Delight at Poazz Grill N Restaurant\r\nPoazz Grill N Restaurant is a culinary haven located in the heart of Zanzibar, specifically on Mlandege Road in Ng'ambo. Known for its rich array of local dishes, this restaurant offers a delightful fusion of traditional flavors and contemporary dining experiences. The menu at Poazz Grill N Restaurant features a variety of dishes that highlight the island's fresh seafood, aromatic spices, and vibrant produce. Signature offerings include grilled fish seasoned with local herbs, succulent meat skewers, and vegetarian options that showcase the regionÆs bounty. The restaurant prides itself on using fresh ingredients sourced from local markets, ensuring each dish is bursting with flavor. Beyond its delicious food, Poazz Grill N Restaurant provides a cozy setting that reflects the cultural richness of Zanzibar. The interior is adorned with traditional decor that creates a warm ambiance perfect for families or romantic dinners alike. Guests can enjoy their meals in an open-air setting while soaking in the sights and sounds of this lively neighborhood. Whether you're visiting for breakfast, lunch, or dinner, Poazz Grill N Restaurant promises a memorable dining experience that captures the essence of Zanzibari hospitality. Try their grilled seafood specials for an unforgettable taste of local flavors. Visit during lunchtime to enjoy a quieter ambiance and quicker service. Don't miss out on their traditional desserts; they are a perfect ending to your meal.",
+      "address": "Mlandege Road Next To Equity Bank, Zanzibar City ╖",
+      "phone": "+255 679 430 584",
+      "logo": "restaurants/poaz_logo.jpg",
+      "is_active": true,
+      "created_at": "2026-02-10T08:39:16.073Z",
+      "updated_at": "2026-02-11T16:48:26.977Z"
+    }
+  },
+  {
+    "model": "core.booking",
+    "pk": 1,
+    "fields": {
+      "customer": [
+        "customer_b"
+      ],
+      "restaurant": 3,
+      "status": "PENDING",
+      "total_price": "80000.00",
+      "notes": "",
+      "created_at": "2026-02-11T16:50:22.051Z",
+      "updated_at": "2026-02-11T16:50:22.060Z"
+    }
+  },
+  {
+    "model": "core.booking",
+    "pk": 2,
+    "fields": {
+      "customer": [
+        "customer_b"
+      ],
+      "restaurant": 3,
+      "status": "CONFIRMED",
+      "total_price": "54000.00",
+      "notes": "",
+      "created_at": "2026-02-11T16:55:45.261Z",
+      "updated_at": "2026-02-12T05:27:06.784Z"
+    }
+  },
+  {
+    "model": "core.booking",
+    "pk": 3,
+    "fields": {
+      "customer": [
+        "customer_b"
+      ],
+      "restaurant": 3,
+      "status": "CONFIRMED",
+      "total_price": "45000.00",
+      "notes": "go",
+      "created_at": "2026-02-12T05:26:09.812Z",
+      "updated_at": "2026-02-12T05:27:04.294Z"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+      "action_time": "2026-01-12T09:57:55.573Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "restaurant"
+      ],
+      "object_id": "1",
+      "object_repr": "POAZ",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+      "action_time": "2026-01-12T10:07:57.179Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "restaurant"
+      ],
+      "object_id": "1",
+      "object_repr": "poa'zz Grill & Restaurant",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Address\", \"Phone\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+      "action_time": "2026-01-12T10:10:06.465Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "1",
+      "object_repr": "KISINIA CHA MZUKA - poa'zz Grill & Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+      "action_time": "2026-01-12T10:11:30.377Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "2",
+      "object_repr": "KISINIA CHA KUJIRAMBA - poa'zz Grill & Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+      "action_time": "2026-01-12T10:13:28.480Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "3",
+      "object_repr": "KISINIA CHA POAZ - poa'zz Grill & Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+      "action_time": "2026-01-12T10:14:57.499Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "4",
+      "object_repr": "KISINIA CHA KUSIBA - poa'zz Grill & Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+      "action_time": "2026-01-12T10:17:09.716Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "5",
+      "object_repr": "KISINIA CHA WASHKAJI - poa'zz Grill & Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+      "action_time": "2026-01-12T10:18:17.888Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "6",
+      "object_repr": "SINIA SEAFOOD - poa'zz Grill & Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+      "action_time": "2026-01-12T10:27:00.823Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "restaurant"
+      ],
+      "object_id": "2",
+      "object_repr": "Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+      "action_time": "2026-01-12T10:32:45.850Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "7",
+      "object_repr": "PLATTER (KISINIA) - Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+      "action_time": "2026-01-12T10:33:40.631Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "8",
+      "object_repr": "PLATTER (KISINIA) - Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+      "action_time": "2026-01-12T10:34:17.703Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "9",
+      "object_repr": "PLATTER (KISINIA) - Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+      "action_time": "2026-01-12T10:34:47.025Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "10",
+      "object_repr": "PLATTER (KISINIA) - Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+      "action_time": "2026-01-12T10:35:56.793Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "11",
+      "object_repr": "SEAFOOD KISINIA - Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+      "action_time": "2026-01-12T10:36:20.945Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "12",
+      "object_repr": "SEAFOOD KISINIA - Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+      "action_time": "2026-01-12T10:36:57.883Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "13",
+      "object_repr": "SEAFOOD KISINIA - Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+      "action_time": "2026-01-12T10:37:44.044Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "14",
+      "object_repr": "SEAFOOD KISINIA - Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+      "action_time": "2026-01-12T10:38:18.424Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "15",
+      "object_repr": "SEAFOOD KISINIA - Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+      "action_time": "2026-01-12T10:38:50.713Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "restaurants",
+        "visinia"
+      ],
+      "object_id": "16",
+      "object_repr": "SEAFOOD KISINIA - Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+      "action_time": "2026-01-12T11:22:52.474Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "customers",
+        "customer"
+      ],
+      "object_id": "1",
+      "object_repr": "maiyyah",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 21,
+    "fields": {
+      "action_time": "2026-01-12T11:26:58.246Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "orders",
+        "order"
+      ],
+      "object_id": "1",
+      "object_repr": "Order #1 - maiyyah",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 22,
+    "fields": {
+      "action_time": "2026-01-12T11:34:09.213Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "orders",
+        "order"
+      ],
+      "object_id": "2",
+      "object_repr": "Order #2 - maiyyah",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 23,
+    "fields": {
+      "action_time": "2026-01-12T11:39:52.511Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "orders",
+        "order"
+      ],
+      "object_id": "3",
+      "object_repr": "Order #3 - maiyyah",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 24,
+    "fields": {
+      "action_time": "2026-01-12T11:40:10.334Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "orders",
+        "order"
+      ],
+      "object_id": "3",
+      "object_repr": "Order #3 - maiyyah",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Visinia\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 25,
+    "fields": {
+      "action_time": "2026-02-08T11:43:35.184Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "core",
+        "restaurant"
+      ],
+      "object_id": "1",
+      "object_repr": "Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 26,
+    "fields": {
+      "action_time": "2026-02-08T11:45:08.148Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "core",
+        "visinia"
+      ],
+      "object_id": "1",
+      "object_repr": "SEAFOOD KISINIA - Taste Me Desserts & Cafe",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 27,
+    "fields": {
+      "action_time": "2026-02-10T08:12:28.854Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "core",
+        "restaurant"
+      ],
+      "object_id": "2",
+      "object_repr": "Taste Me Desserts & CafΘ",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 28,
+    "fields": {
+      "action_time": "2026-02-10T08:33:57.980Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "core",
+        "restaurant"
+      ],
+      "object_id": "2",
+      "object_repr": "Taste Me Desserts & CafΘ",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Logo\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 29,
+    "fields": {
+      "action_time": "2026-02-10T08:39:16.075Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "core",
+        "restaurant"
+      ],
+      "object_id": "3",
+      "object_repr": "Poa'zz Grill N Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 30,
+    "fields": {
+      "action_time": "2026-02-10T09:33:06.857Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "core",
+        "visinia"
+      ],
+      "object_id": "2",
+      "object_repr": "KISINIA CHA MZUKA - Poa'zz Grill N Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 31,
+    "fields": {
+      "action_time": "2026-02-10T09:41:01.570Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "core",
+        "visinia"
+      ],
+      "object_id": "3",
+      "object_repr": "KISINIA CHA KUJIRAMBA - Poa'zz Grill N Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 32,
+    "fields": {
+      "action_time": "2026-02-10T10:02:06.105Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "core",
+        "visinia"
+      ],
+      "object_id": "4",
+      "object_repr": "KISINIA CHA POAZ - Poa'zz Grill N Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 33,
+    "fields": {
+      "action_time": "2026-02-10T10:06:10.390Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "core",
+        "visinia"
+      ],
+      "object_id": "5",
+      "object_repr": "KISINIA CHA KUSIBA - Poa'zz Grill N Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 34,
+    "fields": {
+      "action_time": "2026-02-10T10:23:33.970Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "auth",
+        "user"
+      ],
+      "object_id": "1",
+      "object_repr": "maiyyah",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 35,
+    "fields": {
+      "action_time": "2026-02-11T16:48:26.982Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "core",
+        "restaurant"
+      ],
+      "object_id": "3",
+      "object_repr": "Poa'zz Grill N Restaurant",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Owner\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 36,
+    "fields": {
+      "action_time": "2026-02-11T17:23:55.194Z",
+      "user": [
+        "maiyyah"
+      ],
+      "content_type": [
+        "core",
+        "visinia"
+      ],
+      "object_id": "6",
+      "object_repr": "KISINIA CHA WASHKAJI - Poa'zz Grill N Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  }
+]

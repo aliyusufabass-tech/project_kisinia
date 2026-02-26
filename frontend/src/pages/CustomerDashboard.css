@@ -1,0 +1,1033 @@
+/* Customer Dashboard - Liquid Glass Minimal Theme */
+
+.customer-dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e8e8e8 0%, #d5d5d5 50%, #c0c0c0 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism base */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+/* Header */
+.dashboard-header {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  height: 72px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-icon {
+  font-size: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.brand-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: -0.5px;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #000000;
+  opacity: 0.8;
+}
+
+.logout-btn {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Notifications */
+.notification {
+  position: fixed;
+  top: 90px;
+  right: 32px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 1000;
+  max-width: 400px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.notification.error {
+  background: rgba(220, 38, 38, 0.9);
+  color: #ffffff;
+}
+
+.notification.success {
+  background: rgba(34, 197, 94, 0.9);
+  color: #ffffff;
+}
+
+/* Layout */
+.dashboard-layout {
+  display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 72px);
+  gap: 24px;
+  padding: 24px;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 24px 16px;
+  height: fit-content;
+  position: sticky;
+  top: 96px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  background: transparent;
+  color: #000000;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.nav-item:hover::before {
+  opacity: 1;
+}
+
+.nav-item:hover {
+  transform: translateX(4px);
+}
+
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.25);
+  color: #000000;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item.cart-btn {
+  background: rgba(251, 191, 36, 0.2);
+  color: #000000;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  font-weight: 600;
+}
+
+.nav-item.cart-btn:hover {
+  background: rgba(251, 191, 36, 0.3);
+}
+
+.nav-icon {
+  font-size: 18px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.content-section {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.section-header {
+  margin-bottom: 32px;
+}
+
+.section-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* Loading and Empty States */
+.loading-state {
+  text-align: center;
+  padding: 64px;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 64px;
+  color: #000000;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  opacity: 0.4;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.empty-state h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: #000000;
+}
+
+.empty-state p {
+  font-size: 15px;
+  margin: 0;
+  opacity: 0.7;
+}
+
+/* Grid Layouts */
+.restaurants-grid,
+.menu-grid,
+.bookings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+/* Cards */
+.restaurant-card,
+.menu-item-card,
+.booking-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.restaurant-card.clickable {
+  cursor: pointer;
+}
+
+.restaurant-card:hover,
+.menu-item-card:hover,
+.booking-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.card-image {
+  height: 220px;
+  background: rgba(128, 128, 128, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.restaurant-card:hover .card-image img,
+.menu-item-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 56px;
+  color: #000000;
+  opacity: 0.3;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.card-content {
+  padding: 24px;
+}
+
+.card-content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000000;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.3px;
+}
+
+.card-content .address,
+.card-content .phone {
+  font-size: 14px;
+  color: #000000;
+  margin: 6px 0;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.card-content .description {
+  font-size: 13px;
+  color: #000000;
+  margin: 12px 0;
+  line-height: 1.5;
+  opacity: 0.8;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -webkit-line-clamp: 5;
+  -moz-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.description-section {
+  margin: 12px 0;
+}
+
+.view-more-btn {
+  background: none;
+  border: none;
+  color: #000000;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  text-decoration: underline;
+  opacity: 0.7;
+  transition: all 0.3s;
+}
+
+.view-more-btn:hover {
+  opacity: 1;
+  color: #000000;
+}
+
+.card-content .price {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  margin: 12px 0;
+  letter-spacing: -0.5px;
+}
+
+/* Buttons */
+.browse-btn,
+.add-cart-btn {
+  width: 100%;
+  padding: 12px 20px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 16px;
+}
+
+.browse-btn:hover,
+.add-cart-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Restaurant Header */
+.restaurant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.restaurant-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  flex: 1;
+  text-align: center;
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #000000;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.cart-summary {
+  display: flex;
+  gap: 20px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.cart-summary .total {
+  color: #059669;
+}
+
+/* Booking Cards */
+.booking-card {
+  border-left: 4px solid rgba(0, 0, 0, 0.8);
+}
+
+.booking-card .restaurant-name {
+  font-size: 14px;
+  color: #000000;
+  margin: 8px 0;
+  opacity: 0.9;
+}
+
+.status-section {
+  margin: 12px 0;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #000000;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.status-badge.pending {
+  background: rgba(251, 191, 36, 0.2);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.status-badge.confirmed {
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.status-badge.completed {
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.status-badge.cancelled {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.total-price {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+  margin: 8px 0;
+}
+
+.notes {
+  font-size: 13px;
+  color: #000000;
+  opacity: 0.7;
+  margin: 8px 0;
+}
+
+.status-message {
+  margin-top: 12px;
+}
+
+.message {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.message.pending {
+  background: rgba(251, 191, 36, 0.1);
+  color: #92400e;
+}
+
+.message.confirmed {
+  background: rgba(59, 130, 246, 0.1);
+  color: #1e3a8a;
+}
+
+.message.completed {
+  background: rgba(34, 197, 94, 0.1);
+  color: #14532d;
+}
+
+.message.cancelled {
+  background: rgba(239, 68, 68, 0.1);
+  color: #7f1d1d;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 32px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #000000;
+  cursor: pointer;
+  padding: 8px;
+  line-height: 1;
+  border-radius: 8px;
+  transition: all 0.3s;
+  opacity: 0.7;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 1;
+}
+
+/* Cart Items */
+.cart-items {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0 28px;
+  margin: 20px 0;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+  margin: 0 0 4px 0;
+}
+
+.item-price {
+  font-size: 14px;
+  color: #000000;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.quantity-control button {
+  background: none;
+  border: none;
+  color: #000000;
+  cursor: pointer;
+  padding: 6px 10px;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.quantity-control button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.quantity-control span {
+  min-width: 30px;
+  text-align: center;
+  font-weight: 600;
+  color: #000000;
+}
+
+.item-total {
+  font-weight: 700;
+  color: #000000;
+  min-width: 80px;
+  text-align: right;
+}
+
+.remove-btn {
+  background: rgba(239, 68, 68, 0.8);
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.remove-btn:hover {
+  background: rgba(239, 68, 68, 0.9);
+  transform: translateY(-2px);
+}
+
+.order-total {
+  text-align: right;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000000;
+  padding: 20px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-form {
+  padding: 28px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #000000;
+  transition: all 0.3s;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-group textarea::placeholder {
+  color: #000000;
+  opacity: 0.4;
+}
+
+.form-group textarea:focus {
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 12px 24px;
+  border: 1px solid;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.btn-primary {
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: #000000;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Description Modal */
+.description-modal {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.description-content {
+  padding: 28px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.description-line {
+  font-size: 14px;
+  color: #000000;
+  line-height: 1.6;
+  margin: 8px 0;
+  opacity: 0.9;
+}
+
+.description-line:first-child {
+  margin-top: 0;
+}
+
+.description-line:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .dashboard-layout {
+    flex-direction: column;
+    padding: 16px;
+  }
+  
+  .sidebar {
+    width: 100%;
+    position: static;
+    margin-bottom: 16px;
+  }
+  
+  .nav-menu {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 8px;
+  }
+  
+  .nav-item {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0 20px;
+    height: 64px;
+  }
+  
+  .brand-text {
+    font-size: 18px;
+  }
+  
+  .dashboard-layout {
+    padding: 12px;
+    gap: 16px;
+  }
+  
+  .content-section {
+    padding: 24px;
+  }
+  
+  .section-header h1 {
+    font-size: 24px;
+  }
+  
+  .restaurants-grid,
+  .menu-grid,
+  .bookings-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .restaurant-header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+  
+  .restaurant-header h1 {
+    text-align: center;
+  }
+  
+  .modal-overlay {
+    padding: 16px;
+  }
+  
+  .modal {
+    max-width: 100%;
+  }
+  
+  .notification {
+    right: 16px;
+    left: 16px;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    padding: 0 16px;
+  }
+  
+  .brand-icon {
+    font-size: 24px;
+  }
+  
+  .brand-text {
+    font-size: 16px;
+  }
+  
+  .user-name {
+    display: none;
+  }
+  
+  .content-section {
+    padding: 20px;
+  }
+  
+  .section-header h1 {
+    font-size: 22px;
+  }
+  
+  .modal-form {
+    padding: 20px;
+  }
+  
+  .modal-header {
+    padding: 20px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
