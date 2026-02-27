@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { userAPI, restaurantAPI, visioniaAPI, bookingAPI } from '../api/endpoints';
+import { authAPI, userAPI, restaurantAPI, visioniaAPI, bookingAPI } from '../api/endpoints';
 import { buildImageUrl } from '../api/client';
 import './AdminDashboard.css';
 
@@ -18,6 +18,16 @@ export default function AdminDashboard() {
   const [failedImages, setFailedImages] = useState({});
   const [showDescriptionModal, setShowDescriptionModal] = useState(false);
   const [selectedDescription, setSelectedDescription] = useState({ title: '', content: '' });
+  const [ownerSubmitting, setOwnerSubmitting] = useState(false);
+  const [ownerForm, setOwnerForm] = useState({
+    first_name: '',
+    last_name: '',
+    username: '',
+    email: '',
+    phone: '',
+    password: '',
+    password_confirm: '',
+  });
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   useEffect(() => {
@@ -116,6 +126,46 @@ export default function AdminDashboard() {
   const handleViewDescription = (title, content) => {
     setSelectedDescription({ title, content });
     setShowDescriptionModal(true);
+  };
+
+  const handleOwnerInputChange = (e) => {
+    const { name, value } = e.target;
+    setOwnerForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const parseApiError = (err, fallback) => {
+    const errorData = err.response?.data;
+    if (!errorData) return fallback;
+    if (typeof errorData === 'string') return errorData;
+    if (typeof errorData.detail === 'string') return errorData.detail;
+    return Object.entries(errorData)
+      .map(([field, messages]) => `${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`)
+      .join('\n');
+  };
+
+  const handleOwnerRegistration = async (e) => {
+    e.preventDefault();
+    setOwnerSubmitting(true);
+    setError('');
+    setSuccess('');
+    try {
+      await authAPI.registerOwner(ownerForm);
+      setSuccess('Restaurant owner registered successfully!');
+      setOwnerForm({
+        first_name: '',
+        last_name: '',
+        username: '',
+        email: '',
+        phone: '',
+        password: '',
+        password_confirm: '',
+      });
+      fetchData('users');
+    } catch (err) {
+      setError(parseApiError(err, 'Failed to register restaurant owner'));
+    } finally {
+      setOwnerSubmitting(false);
+    }
   };
 
   const getStats = () => {
@@ -294,6 +344,79 @@ export default function AdminDashboard() {
               <div>
                 <div className="section-header">
                   <h1>Users Management</h1>
+                </div>
+                <div className="owner-form-card">
+                  <h2>Register Restaurant Owner</h2>
+                  <form className="owner-form" onSubmit={handleOwnerRegistration}>
+                    <div className="owner-form-grid">
+                      <input
+                        type="text"
+                        name="first_name"
+                        placeholder="First name"
+                        value={ownerForm.first_name}
+                        onChange={handleOwnerInputChange}
+                        required
+                      />
+                      <input
+                        type="text"
+                        name="last_name"
+                        placeholder="Last name"
+                        value={ownerForm.last_name}
+                        onChange={handleOwnerInputChange}
+                        required
+                      />
+                      <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={ownerForm.username}
+                        onChange={handleOwnerInputChange}
+                        required
+                      />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={ownerForm.email}
+                        onChange={handleOwnerInputChange}
+                        required
+                      />
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Phone (optional)"
+                        value={ownerForm.phone}
+                        onChange={handleOwnerInputChange}
+                      />
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="Password (min 8 chars)"
+                        value={ownerForm.password}
+                        onChange={handleOwnerInputChange}
+                        minLength="8"
+                        required
+                      />
+                      <input
+                        type="password"
+                        name="password_confirm"
+                        placeholder="Confirm password"
+                        value={ownerForm.password_confirm}
+                        onChange={handleOwnerInputChange}
+                        minLength="8"
+                        required
+                      />
+                    </div>
+                    <div className="owner-form-actions">
+                      <button
+                        type="submit"
+                        className="action-btn complete"
+                        disabled={ownerSubmitting}
+                      >
+                        {ownerSubmitting ? 'Registering...' : 'Register Owner'}
+                      </button>
+                    </div>
+                  </form>
                 </div>
                 {loading ? (
                   <div className="loading-state">Loading users...</div>

@@ -148,3 +148,58 @@ class RegistrationSerializer(serializers.ModelSerializer):
         finally:
             # Re-enable automatic profile creation
             os.environ.pop('DISABLE_AUTO_CREATE_PROFILE', None)
+
+
+class AdminOwnerRegistrationSerializer(serializers.ModelSerializer):
+    """Serializer for superuser-only restaurant owner account creation."""
+    password = serializers.CharField(write_only=True, min_length=8)
+    password_confirm = serializers.CharField(write_only=True)
+    phone = serializers.CharField(required=False, allow_blank=True, max_length=20)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'password', 'password_confirm', 'phone']
+
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("A user with this email already exists.")
+        return value
+
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("A user with this username already exists.")
+        return value
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password_confirm']:
+            raise serializers.ValidationError("Passwords don't match.")
+        return attrs
+
+    @transaction.atomic
+    def create(self, validated_data):
+        validated_data.pop('password_confirm')
+        password = validated_data.pop('password')
+        phone = validated_data.pop('phone', '')
+
+        try:
+            os.environ['DISABLE_AUTO_CREATE_PROFILE'] = '1'
+            user = User.objects.create_user(
+                password=password,
+                **validated_data
+            )
+            profile, created = UserProfile.objects.get_or_create(
+                user=user,
+                defaults={
+                    'role': 'RESTAURANT_OWNER',
+                    'phone': phone
+                }
+            )
+            if not created:
+                profile.role = 'RESTAURANT_OWNER'
+                profile.phone = phone
+                profile.save()
+            return user
+        except Exception as e:
+            raise e
+        finally:
+            os.environ.pop('DISABLE_AUTO_CREATE_PROFILE', None)

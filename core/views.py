@@ -9,7 +9,7 @@ from .models import UserProfile, Restaurant, Visinia, Booking, BookingItem
 from .serializers import (
     UserSerializer, UserProfileSerializer, RestaurantSerializer,
     VisioniaSerializer, BookingSerializer, BookingCreateSerializer, BookingItemSerializer,
-    RegistrationSerializer
+    RegistrationSerializer, AdminOwnerRegistrationSerializer
 )
 from .permissions import IsRestaurantOwner, IsAdminUser
 
@@ -254,6 +254,41 @@ def register(request):
         profile, _ = UserProfile.objects.get_or_create(user=user)
         return Response({
             'message': 'User registered successfully',
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'role': profile.role,
+                'phone': profile.phone
+            }
+        }, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def admin_register_owner(request):
+    """Superuser-only endpoint to create restaurant owner accounts."""
+    if not request.user.is_superuser:
+        return Response(
+            {'detail': 'Only superusers can register restaurant owners.'},
+            status=status.HTTP_403_FORBIDDEN
+        )
+
+    serializer = AdminOwnerRegistrationSerializer(data=request.data)
+    if serializer.is_valid():
+        try:
+            user = serializer.save()
+        except Exception as exc:
+            return Response(
+                {'detail': f'Owner registration failed: {str(exc)}'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        profile, _ = UserProfile.objects.get_or_create(user=user)
+        return Response({
+            'message': 'Restaurant owner registered successfully',
             'user': {
                 'id': user.id,
                 'username': user.username,

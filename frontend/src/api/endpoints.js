@@ -6,6 +6,9 @@ export const authAPI = {
   
   register: (userData) =>
     apiClient.post('/register/', userData),
+
+  registerOwner: (userData) =>
+    apiClient.post('/admin/register-owner/', userData),
   
   me: () => apiClient.get('/users/me/'),
   
