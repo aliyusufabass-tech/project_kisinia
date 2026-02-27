@@ -11,6 +11,9 @@ function normalizeApiHost(host) {
   let withoutApi = host.replace(/\/api$/, '');
   // In Vercel production, force backend host to Render to avoid broken localhost/http env values.
   if (typeof window !== 'undefined' && window.location.hostname.endsWith('vercel.app')) {
+    if (withoutApi.includes('vercel.app')) {
+      withoutApi = 'https://project-kisinia.onrender.com';
+    }
     if (
       withoutApi.startsWith('http://127.0.0.1') ||
       withoutApi.startsWith('http://localhost') ||

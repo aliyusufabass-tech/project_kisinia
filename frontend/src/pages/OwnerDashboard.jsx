@@ -90,6 +90,16 @@ export default function OwnerDashboard() {
     navigate('/login');
   };
 
+  const parseApiError = (err, fallback) => {
+    const errorData = err.response?.data;
+    if (!errorData) return fallback;
+    if (typeof errorData === 'string') return errorData;
+    if (typeof errorData.detail === 'string') return errorData.detail;
+    return Object.entries(errorData)
+      .map(([field, messages]) => `${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`)
+      .join('\n');
+  };
+
   const handleAddRestaurant = async (e) => {
     e.preventDefault();
     setError('');
@@ -114,7 +124,7 @@ export default function OwnerDashboard() {
       setSuccess('Restaurant added successfully!');
       fetchData('restaurants');
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to add restaurant');
+      setError(parseApiError(err, 'Failed to add restaurant'));
     }
   };
 
@@ -143,7 +153,7 @@ export default function OwnerDashboard() {
       setSuccess('Restaurant updated successfully!');
       fetchData('restaurants');
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to update restaurant');
+      setError(parseApiError(err, 'Failed to update restaurant'));
     }
   };
 
@@ -215,7 +225,7 @@ export default function OwnerDashboard() {
       setSuccess('Menu item added successfully!');
       fetchData('visiinias');
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to add menu item');
+      setError(parseApiError(err, 'Failed to add menu item'));
     }
   };
 
@@ -244,7 +254,7 @@ export default function OwnerDashboard() {
       setSuccess('Menu item updated successfully!');
       fetchData('visiinias');
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to update menu item');
+      setError(parseApiError(err, 'Failed to update menu item'));
     }
   };
 
