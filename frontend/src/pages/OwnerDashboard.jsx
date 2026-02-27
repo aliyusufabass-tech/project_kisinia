@@ -328,20 +328,20 @@ export default function OwnerDashboard() {
 
   const galleryImages = [
     ...restaurants
-      .filter((restaurant) => !!restaurant.logo)
+      .filter((restaurant) => !!(restaurant.logo_file_url || restaurant.logo))
       .map((restaurant) => ({
         id: `restaurant-${restaurant.id}`,
         title: restaurant.name,
         subtitle: 'Restaurant logo',
-        image: restaurant.logo,
+        image: restaurant.logo_file_url || restaurant.logo,
       })),
     ...visiinias
-      .filter((visinia) => !!visinia.image)
+      .filter((visinia) => !!(visinia.image_file_url || visinia.image))
       .map((visinia) => ({
         id: `visinia-${visinia.id}`,
         title: visinia.name,
         subtitle: 'Menu image',
-        image: visinia.image,
+        image: visinia.image_file_url || visinia.image,
       })),
   ];
 
@@ -428,9 +428,9 @@ export default function OwnerDashboard() {
                   {restaurants.map(restaurant => (
                     <div key={restaurant.id} className="restaurant-card">
                       <div className="card-image">
-                        {restaurant.logo && !failedImages[`restaurant-${restaurant.id}`] ? (
+                        {(restaurant.logo_file_url || restaurant.logo) && !failedImages[`restaurant-${restaurant.id}`] ? (
                           <img
-                            src={buildImageUrl(restaurant.logo)}
+                            src={buildImageUrl(restaurant.logo_file_url || restaurant.logo)}
                             alt={restaurant.name}
                             onError={() => setFailedImages((prev) => ({ ...prev, [`restaurant-${restaurant.id}`]: true }))}
                           />
@@ -515,9 +515,9 @@ export default function OwnerDashboard() {
                   {visiinias.map(visinia => (
                     <div key={visinia.id} className="item-card">
                       <div className="card-image">
-                        {visinia.image && !failedImages[`visinia-${visinia.id}`] ? (
+                        {(visinia.image_file_url || visinia.image) && !failedImages[`visinia-${visinia.id}`] ? (
                           <img
-                            src={buildImageUrl(visinia.image)}
+                            src={buildImageUrl(visinia.image_file_url || visinia.image)}
                             alt={visinia.name}
                             onError={() => setFailedImages((prev) => ({ ...prev, [`visinia-${visinia.id}`]: true }))}
                           />

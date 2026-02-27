@@ -273,9 +273,9 @@ export default function CustomerDashboard() {
                           onClick={() => handleSelectRestaurant(restaurant)}
                         >
                           <div className="card-image">
-                            {restaurant.logo ? (
+                            {(restaurant.logo_file_url || restaurant.logo) ? (
                               <img
-                                src={buildImageUrl(restaurant.logo)} 
+                                src={buildImageUrl(restaurant.logo_file_url || restaurant.logo)} 
                                 alt={restaurant.name} 
                                 onLoad={() => setLoadedImages({...loadedImages, [`restaurant-${restaurant.id}`]: true})}
                                 onError={(e) => {
@@ -284,7 +284,7 @@ export default function CustomerDashboard() {
                                 }}
                               />
                             ) : null}
-                            {(!restaurant.logo || failedImages[`restaurant-${restaurant.id}`] || !loadedImages[`restaurant-${restaurant.id}`]) && (
+                            {(!(restaurant.logo_file_url || restaurant.logo) || failedImages[`restaurant-${restaurant.id}`] || !loadedImages[`restaurant-${restaurant.id}`]) && (
                               <div className="image-placeholder">🏪</div>
                             )}
                           </div>
@@ -353,9 +353,9 @@ export default function CustomerDashboard() {
                       {visiinias.map(visinia => (
                         <div key={visinia.id} className="menu-item-card">
                           <div className="card-image">
-                            {visinia.image ? (
+                            {(visinia.image_file_url || visinia.image) ? (
                               <img
-                                src={buildImageUrl(visinia.image)} 
+                                src={buildImageUrl(visinia.image_file_url || visinia.image)} 
                                 alt={visinia.name} 
                                 onLoad={() => setLoadedImages({...loadedImages, [`visinia-${visinia.id}`]: true})}
                                 onError={(e) => {
@@ -364,7 +364,7 @@ export default function CustomerDashboard() {
                                 }}
                               />
                             ) : null}
-                            {(!visinia.image || failedImages[`visinia-${visinia.id}`] || !loadedImages[`visinia-${visinia.id}`]) && (
+                            {(!(visinia.image_file_url || visinia.image) || failedImages[`visinia-${visinia.id}`] || !loadedImages[`visinia-${visinia.id}`]) && (
                               <div className="image-placeholder">🍽️</div>
                             )}
                           </div>
@@ -566,3 +566,4 @@ export default function CustomerDashboard() {
     </div>
   );
 }
+

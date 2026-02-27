@@ -328,8 +328,8 @@ export default function AdminDashboard() {
                           <div className="table-cell">
                             <div className="restaurant-info">
                               <div className="restaurant-avatar">
-                                {restaurant.logo ? (
-                                  <img src={buildImageUrl(restaurant.logo)} alt={restaurant.name} />
+                                {(restaurant.logo_file_url || restaurant.logo) ? (
+                                  <img src={buildImageUrl(restaurant.logo_file_url || restaurant.logo)} alt={restaurant.name} />
                                 ) : (
                                   <span>🏪</span>
                                 )}
@@ -593,9 +593,9 @@ export default function AdminDashboard() {
                     {visiinias.map(visinia => (
                       <div key={visinia.id} className="menu-item-card">
                         <div className="card-image">
-                          {visinia.image && !failedImages[`visinia-${visinia.id}`] ? (
+                          {(visinia.image_file_url || visinia.image) && !failedImages[`visinia-${visinia.id}`] ? (
                             <img
-                              src={buildImageUrl(visinia.image)} 
+                              src={buildImageUrl(visinia.image_file_url || visinia.image)} 
                               alt={visinia.name} 
                               onLoad={() => setLoadedImages({...loadedImages, [`visinia-${visinia.id}`]: true})}
                               onError={() => setFailedImages({...failedImages, [`visinia-${visinia.id}`]: true})}
@@ -675,3 +675,4 @@ export default function AdminDashboard() {
     </div>
   );
 }
+

@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User
 from django.db import transaction
+from django.http import FileResponse, Http404
 
 from .models import UserProfile, Restaurant, Visinia, Booking, BookingItem
 from .serializers import (
@@ -101,6 +102,14 @@ class RestaurantViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(restaurants, many=True)
         return Response(serializer.data)
 
+    @action(detail=True, methods=['get'], permission_classes=[AllowAny])
+    def logo_file(self, request, pk=None):
+        """Serve restaurant logo directly through API."""
+        restaurant = self.get_object()
+        if not restaurant.logo:
+            raise Http404("Logo not found")
+        return FileResponse(restaurant.logo.open('rb'), content_type='image/*')
+
 
 class VisioniaViewSet(viewsets.ModelViewSet):
     """Visinia viewset for managing food items"""
@@ -140,6 +149,14 @@ class VisioniaViewSet(viewsets.ModelViewSet):
         visiinias = Visinia.objects.filter(restaurant_id=restaurant_id, is_available=True)
         serializer = self.get_serializer(visiinias, many=True)
         return Response(serializer.data)
+
+    @action(detail=True, methods=['get'], permission_classes=[AllowAny])
+    def image_file(self, request, pk=None):
+        """Serve visinia image directly through API."""
+        visinia = self.get_object()
+        if not visinia.image:
+            raise Http404("Image not found")
+        return FileResponse(visinia.image.open('rb'), content_type='image/*')
 
 
 class BookingViewSet(viewsets.ModelViewSet):

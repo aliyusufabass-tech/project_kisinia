@@ -42,19 +42,31 @@ class RestaurantSerializer(serializers.ModelSerializer):
     owner = UserSerializer(read_only=True)
     owner_id = serializers.IntegerField(write_only=True, required=False)
     logo = RelativeImageField(required=False, allow_null=True)
+    logo_file_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Restaurant
-        fields = ['id', 'owner', 'owner_id', 'name', 'description', 'address', 'phone', 'logo', 'is_active', 'created_at', 'updated_at']
+        fields = ['id', 'owner', 'owner_id', 'name', 'description', 'address', 'phone', 'logo', 'logo_file_url', 'is_active', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
+
+    def get_logo_file_url(self, obj):
+        if not obj.logo:
+            return None
+        return f"/api/restaurants/{obj.id}/logo_file/"
 
 class VisioniaSerializer(serializers.ModelSerializer):
     image = RelativeImageField(required=False, allow_null=True)
+    image_file_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Visinia
-        fields = ['id', 'restaurant', 'name', 'description', 'price', 'image', 'is_available', 'created_at', 'updated_at']
+        fields = ['id', 'restaurant', 'name', 'description', 'price', 'image', 'image_file_url', 'is_available', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
+
+    def get_image_file_url(self, obj):
+        if not obj.image:
+            return None
+        return f"/api/visiinias/{obj.id}/image_file/"
 
 
 class BookingItemSerializer(serializers.ModelSerializer):
