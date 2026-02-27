@@ -4,6 +4,41 @@ import { restaurantAPI, visioniaAPI, bookingAPI } from '../api/endpoints';
 import { buildImageUrl } from '../api/client';
 import './CustomerDashboard.css';
 
+const AUTO_RESTAURANT_IMAGES = [
+  '/media/restaurants/Image_fx_3.png',
+  '/media/restaurants/Image_fx_4.png',
+  '/media/restaurants/Image_fx_9.png',
+  '/media/restaurants/poaz_logo.jpg',
+  '/media/restaurants/taste_me.jpeg',
+];
+
+const AUTO_MENU_IMAGES = [
+  '/media/visiinias/kisinia_cha_kushiba.png',
+  '/media/visiinias/kisinia_cha_kujiramba.png',
+  '/media/visiinias/kisinia_cha_mzuka.png',
+  '/media/visiinias/kisinia_cha_poaz.png',
+  '/media/visiinias/kisinia_cha_washkaji.png',
+  '/media/visiinias/Image_fx_11.png',
+  '/media/visiinias/Image_fx_7.png',
+];
+
+function hashSeed(value) {
+  const text = String(value || '');
+  let hash = 0;
+  for (let index = 0; index < text.length; index += 1) {
+    hash = (hash << 5) - hash + text.charCodeAt(index);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
+function pickAutoImage(imagePool, seed) {
+  if (!imagePool.length) {
+    return null;
+  }
+  return imagePool[hashSeed(seed) % imagePool.length];
+}
+
 export default function CustomerDashboard() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('restaurants');
@@ -17,8 +52,8 @@ export default function CustomerDashboard() {
   const [bookingNotes, setBookingNotes] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [loadedImages, setLoadedImages] = useState({});
   const [failedImages, setFailedImages] = useState({});
+  const [failedFallbackImages, setFailedFallbackImages] = useState({});
   const [showDescriptionModal, setShowDescriptionModal] = useState(false);
   const [selectedDescription, setSelectedDescription] = useState({ title: '', content: '' });
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -49,7 +84,7 @@ export default function CustomerDashboard() {
         setTimeout(() => navigate('/login'), 2000);
         return;
       }
-    } catch (err) {
+    } catch {
       setError('Invalid session. Please log in again.');
       setTimeout(() => navigate('/login'), 2000);
       return;
@@ -196,6 +231,36 @@ export default function CustomerDashboard() {
     setShowDescriptionModal(true);
   };
 
+  const getRestaurantImageData = (restaurant) => {
+    const key = `restaurant-${restaurant.id}`;
+    const primaryPath = restaurant.logo_file_url || restaurant.logo;
+    const fallbackPath = pickAutoImage(AUTO_RESTAURANT_IMAGES, `${restaurant.id}-${restaurant.name}`);
+    const usePrimary = Boolean(primaryPath) && !failedImages[key];
+    const srcPath = usePrimary ? primaryPath : fallbackPath;
+
+    return {
+      key,
+      src: srcPath ? buildImageUrl(srcPath) : null,
+      usePrimary,
+      fallbackFailed: Boolean(failedFallbackImages[key]),
+    };
+  };
+
+  const getVisiniaImageData = (visinia) => {
+    const key = `visinia-${visinia.id}`;
+    const primaryPath = visinia.image_file_url || visinia.image;
+    const fallbackPath = pickAutoImage(AUTO_MENU_IMAGES, `${visinia.id}-${visinia.name}`);
+    const usePrimary = Boolean(primaryPath) && !failedImages[key];
+    const srcPath = usePrimary ? primaryPath : fallbackPath;
+
+    return {
+      key,
+      src: srcPath ? buildImageUrl(srcPath) : null,
+      usePrimary,
+      fallbackFailed: Boolean(failedFallbackImages[key]),
+    };
+  };
+
   return (
     <div className="customer-dashboard">
       {/* Header */}
@@ -266,25 +331,32 @@ export default function CustomerDashboard() {
                     </div>
                   ) : (
                     <div className="restaurants-grid">
-                      {restaurants.map(restaurant => (
+                      {restaurants.map(restaurant => {
+                        const imageData = getRestaurantImageData(restaurant);
+                        return (
                         <div 
                           key={restaurant.id}
                           className="restaurant-card clickable"
                           onClick={() => handleSelectRestaurant(restaurant)}
                         >
                           <div className="card-image">
-                            {(restaurant.logo_file_url || restaurant.logo) ? (
+                            {imageData.src ? (
                               <img
-                                src={buildImageUrl(restaurant.logo_file_url || restaurant.logo)} 
+                                src={imageData.src} 
                                 alt={restaurant.name} 
-                                onLoad={() => setLoadedImages({...loadedImages, [`restaurant-${restaurant.id}`]: true})}
-                                onError={(e) => {
-                                  setFailedImages({...failedImages, [`restaurant-${restaurant.id}`]: true});
-                                  e.target.style.display = 'none';
+                                onError={() => {
+                                  if (imageData.usePrimary) {
+                                    setFailedImages((prev) => ({ ...prev, [imageData.key]: true }));
+                                  } else {
+                                    setFailedFallbackImages((prev) => ({
+                                      ...prev,
+                                      [imageData.key]: true,
+                                    }));
+                                  }
                                 }}
                               />
                             ) : null}
-                            {(!(restaurant.logo_file_url || restaurant.logo) || failedImages[`restaurant-${restaurant.id}`] || !loadedImages[`restaurant-${restaurant.id}`]) && (
+                            {(imageData.fallbackFailed || !imageData.src) && (
                               <div className="image-placeholder">🏪</div>
                             )}
                           </div>
@@ -315,7 +387,8 @@ export default function CustomerDashboard() {
                             </button>
                           </div>
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </>
@@ -350,21 +423,28 @@ export default function CustomerDashboard() {
                     </div>
                   ) : (
                     <div className="menu-grid">
-                      {visiinias.map(visinia => (
+                      {visiinias.map(visinia => {
+                        const imageData = getVisiniaImageData(visinia);
+                        return (
                         <div key={visinia.id} className="menu-item-card">
                           <div className="card-image">
-                            {(visinia.image_file_url || visinia.image) ? (
+                            {imageData.src ? (
                               <img
-                                src={buildImageUrl(visinia.image_file_url || visinia.image)} 
+                                src={imageData.src} 
                                 alt={visinia.name} 
-                                onLoad={() => setLoadedImages({...loadedImages, [`visinia-${visinia.id}`]: true})}
-                                onError={(e) => {
-                                  setFailedImages({...failedImages, [`visinia-${visinia.id}`]: true});
-                                  e.target.style.display = 'none';
+                                onError={() => {
+                                  if (imageData.usePrimary) {
+                                    setFailedImages((prev) => ({ ...prev, [imageData.key]: true }));
+                                  } else {
+                                    setFailedFallbackImages((prev) => ({
+                                      ...prev,
+                                      [imageData.key]: true,
+                                    }));
+                                  }
                                 }}
                               />
                             ) : null}
-                            {(!(visinia.image_file_url || visinia.image) || failedImages[`visinia-${visinia.id}`] || !loadedImages[`visinia-${visinia.id}`]) && (
+                            {(imageData.fallbackFailed || !imageData.src) && (
                               <div className="image-placeholder">🍽️</div>
                             )}
                           </div>
@@ -397,7 +477,8 @@ export default function CustomerDashboard() {
                             </button>
                           </div>
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </>

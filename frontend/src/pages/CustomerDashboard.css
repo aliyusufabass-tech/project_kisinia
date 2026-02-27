@@ -293,6 +293,16 @@
   gap: 24px;
 }
 
+.restaurants-grid .restaurant-card:nth-child(3n + 2) .card-image,
+.menu-grid .menu-item-card:nth-child(3n + 2) .card-image {
+  height: 280px;
+}
+
+.restaurants-grid .restaurant-card:nth-child(3n) .card-image,
+.menu-grid .menu-item-card:nth-child(3n) .card-image {
+  height: 190px;
+}
+
 /* Cards */
 .restaurant-card,
 .menu-item-card,
@@ -321,7 +331,7 @@
 
 .card-image {
   height: 220px;
-  background: rgba(128, 128, 128, 0.15);
+  background: linear-gradient(135deg, rgba(245, 245, 245, 0.9), rgba(215, 215, 215, 0.8));
   position: relative;
   overflow: hidden;
 }
@@ -349,8 +359,9 @@
   height: 100%;
   font-size: 56px;
   color: #000000;
-  opacity: 0.3;
+  opacity: 0.35;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  background: linear-gradient(135deg, rgba(220, 220, 220, 0.7), rgba(195, 195, 195, 0.75));
 }
 
 .card-content {

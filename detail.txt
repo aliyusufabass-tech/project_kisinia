@@ -1,0 +1,193 @@
+﻿KISINIA PROJECT - COMPLETE OVERVIEW
+
+1) Project Summary
+Kisinia is a full-stack restaurant and food-ordering platform built with a Django REST backend and a React (Vite) frontend.
+The system supports three user roles:
+- ADMIN
+- RESTAURANT_OWNER
+- CUSTOMER
+
+Main business flow:
+- Customers browse restaurants and menu items (called "Visinia/Visiinias").
+- Customers create bookings/orders.
+- Restaurant owners manage restaurants, menu items, and order status.
+- Admin users manage users, monitor restaurants, and oversee bookings.
+
+
+2) Technology Stack
+Backend:
+- Python + Django 6
+- Django REST Framework
+- JWT auth with djangorestframework-simplejwt
+- Swagger/ReDoc docs with drf-yasg
+- PostgreSQL connection via dj-database-url
+- Pillow for image uploads
+
+Frontend:
+- React 19
+- Vite 7
+- React Router DOM
+- Axios with token interceptors
+- CSS-based dashboards per role
+
+Deployment/Infra:
+- Render config included (render.yaml)
+- Frontend prepared for Vercel + Render backend integration
+- Media uploads supported via MEDIA_ROOT and MEDIA_URL
+
+
+3) Repository Structure
+- manage.py: Django entry point
+- kisinia_project/: Django project config (settings, urls, wsgi, asgi)
+- core/: Main business app (models, serializers, views, permissions, urls, admin, migrations)
+- frontend/: React app (pages, API client, routing, styles)
+- media/: Uploaded images for restaurants and visiinias
+- tools/: Utility scripts for fixture encoding/filtering/seeding support
+- db.sqlite3 + JSON backups: Local/testing data snapshots
+
+
+4) Backend Architecture
+4.1 Authentication and Roles
+- JWT-based authentication for API access.
+- Public registration endpoint allows CUSTOMER creation.
+- Superuser-only endpoint allows RESTAURANT_OWNER registration.
+- UserProfile model extends Django User with:
+  - role
+  - phone
+  - avatar
+
+4.2 Core Models
+- UserProfile: One-to-one with User; stores role and profile data.
+- Restaurant:
+  - owned by a user
+  - has name, description, address, phone, logo, active flag
+- Visinia (menu item):
+  - belongs to a restaurant
+  - has name, description, price, image, availability
+- Booking (order):
+  - customer + restaurant
+  - many Visinia items through BookingItem
+  - status (PENDING, CONFIRMED, COMPLETED, CANCELLED)
+  - total_price, notes
+- BookingItem:
+  - joins booking and visinia
+  - quantity and unit price
+
+4.3 API Endpoints (high level)
+Base path: /api/
+- Auth:
+  - POST /token/
+  - POST /token/refresh/
+- Registration:
+  - POST /register/
+  - POST /register-owner/ (and aliases)
+- ViewSets/Resources:
+  - /users/
+  - /profiles/
+  - /restaurants/
+  - /visiinias/
+  - /bookings/
+- Extra actions:
+  - users/me/
+  - users/{id}/admin_delete/
+  - restaurants/my_restaurants/
+  - restaurants/{id}/logo_file/
+  - visiinias/by_restaurant/?restaurant_id=
+  - visiinias/{id}/image_file/
+  - bookings/my_bookings/
+  - bookings/{id}/confirm/
+  - bookings/{id}/complete/
+  - bookings/{id}/cancel/
+
+4.4 API Documentation
+- Swagger UI: /swagger/
+- ReDoc UI: /redoc/
+- Raw schema: /api/schema/
+
+
+5) Frontend Architecture
+5.1 Routing
+Main routes:
+- /login
+- /register
+- /admin
+- /owner
+- /customer
+
+ProtectedRoute enforces role-based access so each user is redirected to the correct dashboard.
+
+5.2 API Layer
+- frontend/src/api/client.js sets Axios base URL and JWT interceptors.
+- Adds access token to Authorization header.
+- On 401, tries refresh token automatically.
+- Handles API host normalization for local and Vercel contexts.
+- Includes helper to build image URLs safely.
+
+5.3 Dashboards
+- Admin dashboard:
+  - user management
+  - restaurant oversight
+  - booking/order oversight
+- Owner dashboard:
+  - manage own restaurants
+  - create/update menu items
+  - confirm/complete orders
+- Customer dashboard:
+  - browse restaurants and menu
+  - cart + quantity changes
+  - place booking
+  - track order history/status
+
+
+6) Data and Media
+- Media files are stored in /media (or MEDIA_ROOT env path in production).
+- Existing sample images for restaurants and menu items are included.
+- JSON fixtures/backups are present for data restoration or migration support.
+
+
+7) Security and Access Control
+- JWT protects authenticated endpoints.
+- Role checks in querysets and action handlers limit data visibility:
+  - Customers see own bookings.
+  - Owners see their restaurants/items/bookings.
+  - Admin/staff get broader control.
+- Superuser restriction is applied for restaurant-owner account creation endpoint.
+
+
+8) Local Development (Typical)
+Backend:
+1. Create and activate virtual environment.
+2. Install dependencies from requirement.txt.
+3. Run migrations.
+4. Start Django server.
+
+Frontend:
+1. Go to frontend/.
+2. Install npm dependencies.
+3. Run Vite dev server.
+
+Default local addresses:
+- Backend API: http://127.0.0.1:8000/api
+- Frontend: http://localhost:5173
+
+
+9) Deployment Notes
+- render.yaml defines a Python web service for backend deployment.
+- Build command installs dependencies from requirement.txt.
+- Start command runs migrations and starts Django server.
+- Environment variables include DEBUG, SECRET_KEY, DATABASE_URL, ALLOWED_HOSTS, and MEDIA_ROOT.
+- Frontend API client includes logic to target Render backend from Vercel-hosted frontend.
+
+
+10) Utilities and Seed Data
+- Management command: core.management.commands.seed_users
+  Creates default users for admin, owner, and customers.
+- Utility scripts in tools/ support fixture filtering/encoding and profile inspection.
+
+
+11) Important Note
+Some files contain hardcoded example credentials and a default/fallback database URL. For production hardening, secrets and connection strings should be provided only through secure environment variables.
+
+
+12) Overall Assessment
+This project is a role-based food ordering system with complete backend APIs, token authentication, image support, and a multi-dashboard frontend. It already includes core CRUD operations, order lifecycle management, API docs, seed users, and deployment configuration, making it close to production-ready with additional security hardening and operational refinements.
