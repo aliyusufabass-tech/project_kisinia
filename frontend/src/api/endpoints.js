@@ -83,4 +83,6 @@ export const userAPI = {
   list: () => apiClient.get('/users/'),
   
   get: (id) => apiClient.get(`/users/${id}/`),
+
+  delete: (id) => apiClient.delete(`/users/${id}/admin_delete/`),
 };

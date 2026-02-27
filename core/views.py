@@ -26,6 +26,32 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(request.user)
         return Response(serializer.data)
 
+    @action(detail=True, methods=['delete'], permission_classes=[IsAuthenticated])
+    def admin_delete(self, request, pk=None):
+        """Allow staff/admin panel to delete non-superuser accounts."""
+        if not request.user.is_staff:
+            return Response(
+                {"detail": "Only staff users can delete accounts."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        target_user = self.get_object()
+
+        if target_user == request.user:
+            return Response(
+                {"detail": "You cannot delete your own account."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if target_user.is_superuser:
+            return Response(
+                {"detail": "Superuser accounts cannot be deleted from this panel."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        target_user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     """User profile viewset"""

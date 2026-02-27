@@ -109,6 +109,33 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleDeleteUser = async (userRecord) => {
+    if (userRecord?.is_superuser) {
+      setError('Superuser accounts cannot be deleted from this panel.');
+      return;
+    }
+
+    if (userRecord?.id === user?.id) {
+      setError('You cannot delete your own account.');
+      return;
+    }
+
+    const role = userRecord?.profile?.role || 'CUSTOMER';
+    const accountType = role === 'RESTAURANT_OWNER' ? 'restaurant owner' : 'user';
+    if (!window.confirm(`Are you sure you want to delete this ${accountType} account?`)) {
+      return;
+    }
+
+    try {
+      await userAPI.delete(userRecord.id);
+      setSuccess('Account deleted successfully!');
+      fetchData('users');
+    } catch (err) {
+      const detail = err.response?.data?.detail;
+      setError(detail || 'Failed to delete account');
+    }
+  };
+
   const truncateDescription = (description, maxLines = 3) => {
     if (!description) return '';
     
@@ -465,6 +492,16 @@ export default function AdminDashboard() {
                               {u.is_staff && <span className="status-badge staff">STAFF</span>}
                               {!u.is_superuser && !u.is_staff && <span className="status-badge normal">USER</span>}
                             </div>
+                            {!u.is_superuser && u.id !== user?.id && (
+                              <div style={{ marginTop: '8px' }}>
+                                <button
+                                  className="action-btn delete"
+                                  onClick={() => handleDeleteUser(u)}
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            )}
                           </div>
                         </div>
                       ))}
