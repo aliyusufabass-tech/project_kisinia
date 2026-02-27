@@ -8,7 +8,18 @@ const FALLBACK_API_HOST =
 const RAW_API_HOST = (import.meta.env.VITE_API_URL || FALLBACK_API_HOST).replace(/\/+$/, '');
 
 function normalizeApiHost(host) {
-  const withoutApi = host.replace(/\/api$/, '');
+  let withoutApi = host.replace(/\/api$/, '');
+  // In Vercel production, force backend host to Render to avoid broken localhost/http env values.
+  if (typeof window !== 'undefined' && window.location.hostname.endsWith('vercel.app')) {
+    if (
+      withoutApi.startsWith('http://127.0.0.1') ||
+      withoutApi.startsWith('http://localhost') ||
+      withoutApi.startsWith('https://127.0.0.1') ||
+      withoutApi.startsWith('https://localhost')
+    ) {
+      withoutApi = 'https://project-kisinia.onrender.com';
+    }
+  }
   if (typeof window !== 'undefined' && window.location.protocol === 'https:' && withoutApi.startsWith('http://')) {
     return withoutApi.replace(/^http:\/\//, 'https://');
   }

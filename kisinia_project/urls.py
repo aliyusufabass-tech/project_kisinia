@@ -47,6 +47,6 @@ urlpatterns = [
     path('api/schema/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
 ]
 
-# Serve user-uploaded media for this deployment setup.
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serve user-uploaded media for this deployment setup (even when DEBUG=False).
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, insecure=True)
 
