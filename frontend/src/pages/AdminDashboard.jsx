@@ -37,7 +37,6 @@ export default function AdminDashboard() {
     address: '',
     phone: '',
     owner_id: '',
-    logo: null,
   });
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -125,11 +124,7 @@ export default function AdminDashboard() {
   };
 
   const handleRestaurantInputChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'logo') {
-      setRestaurantForm((prev) => ({ ...prev, logo: files?.[0] || null }));
-      return;
-    }
+    const { name, value } = e.target;
     setRestaurantForm((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -139,15 +134,13 @@ export default function AdminDashboard() {
     setError('');
     setSuccess('');
     try {
-      const data = new FormData();
-      data.append('name', restaurantForm.name);
-      data.append('description', restaurantForm.description || '');
-      data.append('address', restaurantForm.address);
-      data.append('phone', restaurantForm.phone);
-      data.append('owner_id', restaurantForm.owner_id);
-      if (restaurantForm.logo) data.append('logo', restaurantForm.logo);
-
-      await restaurantAPI.create(data);
+      await restaurantAPI.create({
+        name: restaurantForm.name,
+        description: restaurantForm.description || '',
+        address: restaurantForm.address,
+        phone: restaurantForm.phone,
+        owner_id: restaurantForm.owner_id,
+      });
       setSuccess('Restaurant added successfully!');
       setShowAddRestaurant(false);
       setRestaurantForm({
@@ -156,7 +149,6 @@ export default function AdminDashboard() {
         address: '',
         phone: '',
         owner_id: '',
-        logo: null,
       });
       fetchData('restaurants');
     } catch (err) {
@@ -755,12 +747,7 @@ export default function AdminDashboard() {
                   onChange={handleRestaurantInputChange}
                   rows={3}
                 />
-                <input
-                  type="file"
-                  name="logo"
-                  accept="image/*"
-                  onChange={handleRestaurantInputChange}
-                />
+                <p className="helper-text">Logo itawekwa automatic kutoka picha za project.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-primary" onClick={() => setShowAddRestaurant(false)}>

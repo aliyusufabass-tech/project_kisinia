@@ -4,6 +4,34 @@ from django.db import transaction
 import os
 from .models import UserProfile, Restaurant, Visinia, Booking, BookingItem, USER_ROLES
 
+AUTO_RESTAURANT_LOGOS = [
+    'restaurants/Image_fx_3.png',
+    'restaurants/Image_fx_4.png',
+    'restaurants/Image_fx_9.png',
+    'restaurants/poaz_logo.jpg',
+    'restaurants/taste_me.jpeg',
+]
+
+AUTO_VISINIA_IMAGES = [
+    'visiinias/kisinia_cha_kushiba.png',
+    'visiinias/kisinia_cha_kujiramba.png',
+    'visiinias/kisinia_cha_mzuka.png',
+    'visiinias/kisinia_cha_poaz.png',
+    'visiinias/kisinia_cha_washkaji.png',
+    'visiinias/Image_fx_11.png',
+    'visiinias/Image_fx_7.png',
+]
+
+
+def pick_auto_media_path(options, seed):
+    if not options:
+        return None
+    text = str(seed or '')
+    value = 0
+    for index, char in enumerate(text):
+        value += (index + 1) * ord(char)
+    return options[value % len(options)]
+
 
 class RelativeImageField(serializers.ImageField):
     """Return relative media path while keeping field writable for uploads."""
@@ -54,6 +82,17 @@ class RestaurantSerializer(serializers.ModelSerializer):
             return None
         return f"/api/restaurants/{obj.id}/logo_file/"
 
+    def create(self, validated_data):
+        # Force automatic logo assignment from project media files.
+        validated_data.pop('logo', None)
+        restaurant = super().create(validated_data)
+        restaurant.logo = pick_auto_media_path(
+            AUTO_RESTAURANT_LOGOS,
+            f"{restaurant.owner_id}-{restaurant.name}-{restaurant.id}",
+        )
+        restaurant.save(update_fields=['logo'])
+        return restaurant
+
 class VisioniaSerializer(serializers.ModelSerializer):
     image = RelativeImageField(required=False, allow_null=True)
     image_file_url = serializers.SerializerMethodField()
@@ -67,6 +106,17 @@ class VisioniaSerializer(serializers.ModelSerializer):
         if not obj.image:
             return None
         return f"/api/visiinias/{obj.id}/image_file/"
+
+    def create(self, validated_data):
+        # Force automatic menu image assignment from project media files.
+        validated_data.pop('image', None)
+        visinia = super().create(validated_data)
+        visinia.image = pick_auto_media_path(
+            AUTO_VISINIA_IMAGES,
+            f"{visinia.restaurant_id}-{visinia.name}-{visinia.id}",
+        )
+        visinia.save(update_fields=['image'])
+        return visinia
 
 
 class BookingItemSerializer(serializers.ModelSerializer):

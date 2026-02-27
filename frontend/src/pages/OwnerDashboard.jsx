@@ -26,7 +26,6 @@ export default function OwnerDashboard() {
     description: '',
     address: '',
     phone: '',
-    logo: null,
   });
 
   const [visioniaData, setVisioniaData] = useState({
@@ -34,7 +33,6 @@ export default function OwnerDashboard() {
     description: '',
     price: '',
     restaurant: '',
-    image: null,
   });
 
   useEffect(() => {
@@ -103,15 +101,13 @@ export default function OwnerDashboard() {
     }
 
     try {
-      const data = new FormData();
-      data.append('name', formData.name);
-      data.append('description', formData.description);
-      data.append('address', formData.address);
-      data.append('phone', formData.phone);
-      if (formData.logo) data.append('logo', formData.logo);
-
-      await restaurantAPI.update(editingRestaurant.id, data);
-      setFormData({ name: '', description: '', address: '', phone: '', logo: null });
+      await restaurantAPI.update(editingRestaurant.id, {
+        name: formData.name,
+        description: formData.description,
+        address: formData.address,
+        phone: formData.phone,
+      });
+      setFormData({ name: '', description: '', address: '', phone: '' });
       setEditingRestaurant(null);
       setShowEditRestaurant(false);
       setSuccess('Restaurant updated successfully!');
@@ -160,7 +156,6 @@ export default function OwnerDashboard() {
       description: restaurant.description || '',
       address: restaurant.address,
       phone: restaurant.phone,
-      logo: null,
     });
     setShowEditRestaurant(true);
   };
@@ -176,15 +171,13 @@ export default function OwnerDashboard() {
     }
 
     try {
-      const data = new FormData();
-      data.append('name', visioniaData.name);
-      data.append('description', visioniaData.description);
-      data.append('price', visioniaData.price);
-      data.append('restaurant', visioniaData.restaurant);
-      if (visioniaData.image) data.append('image', visioniaData.image);
-
-      await visioniaAPI.create(data);
-      setVisioniaData({ name: '', description: '', price: '', restaurant: '', image: null });
+      await visioniaAPI.create({
+        name: visioniaData.name,
+        description: visioniaData.description,
+        price: visioniaData.price,
+        restaurant: visioniaData.restaurant,
+      });
+      setVisioniaData({ name: '', description: '', price: '', restaurant: '' });
       setShowAddVisinia(false);
       setSuccess('Menu item added successfully!');
       fetchData('visiinias');
@@ -204,15 +197,13 @@ export default function OwnerDashboard() {
     }
 
     try {
-      const data = new FormData();
-      data.append('name', visioniaData.name);
-      data.append('description', visioniaData.description);
-      data.append('price', visioniaData.price);
-      data.append('restaurant', visioniaData.restaurant);
-      if (visioniaData.image) data.append('image', visioniaData.image);
-
-      await visioniaAPI.update(editingVisinia.id, data);
-      setVisioniaData({ name: '', description: '', price: '', restaurant: '', image: null });
+      await visioniaAPI.update(editingVisinia.id, {
+        name: visioniaData.name,
+        description: visioniaData.description,
+        price: visioniaData.price,
+        restaurant: visioniaData.restaurant,
+      });
+      setVisioniaData({ name: '', description: '', price: '', restaurant: '' });
       setEditingVisinia(null);
       setShowEditVisinia(false);
       setSuccess('Menu item updated successfully!');
@@ -261,7 +252,6 @@ export default function OwnerDashboard() {
       description: visinia.description || '',
       price: visinia.price,
       restaurant: visinia.restaurant,
-      image: null,
     });
     setShowEditVisinia(true);
   };
@@ -635,13 +625,8 @@ export default function OwnerDashboard() {
                 />
               </div>
               <div className="form-group">
-                <label>Logo (leave empty to keep current)</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setFormData({...formData, logo: e.target.files[0]})}
-                  className="file-input"
-                />
+                <label>Logo</label>
+                <p className="auto-image-note">Logo inawekwa automatic kutoka picha za project.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowEditRestaurant(false)}>
@@ -715,12 +700,7 @@ export default function OwnerDashboard() {
               </div>
               <div className="form-group">
                 <label>Image</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setVisioniaData({...visioniaData, image: e.target.files[0]})}
-                  className="file-input"
-                />
+                <p className="auto-image-note">Picha itawekwa automatic kutoka picha za project.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowAddVisinia(false)}>
@@ -793,13 +773,8 @@ export default function OwnerDashboard() {
                 />
               </div>
               <div className="form-group">
-                <label>Image (leave empty to keep current)</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setVisioniaData({...visioniaData, image: e.target.files[0]})}
-                  className="file-input"
-                />
+                <label>Image</label>
+                <p className="auto-image-note">Picha ya menu imepangwa automatic na mfumo.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowEditVisinia(false)}>

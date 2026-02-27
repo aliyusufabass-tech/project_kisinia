@@ -935,6 +935,16 @@ input:checked + .toggle-slider:hover {
   min-height: 90px;
 }
 
+.auto-image-note {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(128, 128, 128, 0.15);
+  border: 1px dashed rgba(128, 128, 128, 0.35);
+  color: #111111;
+  font-size: 13px;
+}
+
 .file-input {
   padding: 10px 0;
   background: transparent;
