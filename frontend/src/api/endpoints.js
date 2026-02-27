@@ -7,8 +7,25 @@ export const authAPI = {
   register: (userData) =>
     apiClient.post('/register/', userData),
 
-  registerOwner: (userData) =>
-    apiClient.post('/register-owner/', userData),
+  registerOwner: async (userData) => {
+    try {
+      return await apiClient.post('/register-owner/', userData);
+    } catch (err) {
+      if (err.response?.status !== 404) {
+        throw err;
+      }
+    }
+
+    try {
+      return await apiClient.post('/admin/register-owner/', userData);
+    } catch (err) {
+      if (err.response?.status !== 404) {
+        throw err;
+      }
+    }
+
+    return apiClient.post('/register-owner', userData);
+  },
   
   me: () => apiClient.get('/users/me/'),
   

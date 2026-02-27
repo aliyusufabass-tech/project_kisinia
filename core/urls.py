@@ -15,7 +15,9 @@ router.register(r'bookings', BookingViewSet, basename='booking')
 
 urlpatterns = [
     path('register/', register, name='register'),
+    path('register-owner', admin_register_owner, name='register_owner_no_slash'),
     path('register-owner/', admin_register_owner, name='register_owner'),
+    path('admin/register-owner', admin_register_owner, name='admin_register_owner_no_slash'),
     path('admin/register-owner/', admin_register_owner, name='admin_register_owner'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
