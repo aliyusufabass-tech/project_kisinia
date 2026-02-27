@@ -5,6 +5,17 @@ import os
 from .models import UserProfile, Restaurant, Visinia, Booking, BookingItem, USER_ROLES
 
 
+class RelativeImageField(serializers.ImageField):
+    """Return relative media path while keeping field writable for uploads."""
+    def to_representation(self, value):
+        if not value:
+            return None
+        try:
+            return value.url
+        except Exception:
+            return None
+
+
 class UserSerializer(serializers.ModelSerializer):
     profile = serializers.SerializerMethodField()
 
@@ -30,31 +41,20 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class RestaurantSerializer(serializers.ModelSerializer):
     owner = UserSerializer(read_only=True)
     owner_id = serializers.IntegerField(write_only=True, required=False)
-    logo = serializers.SerializerMethodField()
+    logo = RelativeImageField(required=False, allow_null=True)
 
     class Meta:
         model = Restaurant
         fields = ['id', 'owner', 'owner_id', 'name', 'description', 'address', 'phone', 'logo', 'is_active', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
 
-    def get_logo(self, obj):
-        if not obj.logo:
-            return None
-        return obj.logo.url
-
-
 class VisioniaSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
+    image = RelativeImageField(required=False, allow_null=True)
 
     class Meta:
         model = Visinia
         fields = ['id', 'restaurant', 'name', 'description', 'price', 'image', 'is_available', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
-
-    def get_image(self, obj):
-        if not obj.image:
-            return None
-        return obj.image.url
 
 
 class BookingItemSerializer(serializers.ModelSerializer):
