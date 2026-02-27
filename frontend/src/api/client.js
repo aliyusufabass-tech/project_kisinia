@@ -9,7 +9,13 @@ const BASE_URL = API_HOST + '/api';
 export function buildImageUrl(path) {
   if (!path) return null;
   // already an absolute URL
-  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    // Avoid mixed-content blocks when app is served over HTTPS.
+    if (typeof window !== 'undefined' && window.location.protocol === 'https:' && path.startsWith('http://')) {
+      return path.replace(/^http:\/\//, 'https://');
+    }
+    return path;
+  }
   // path already starts with /media/
   if (path.startsWith('/')) return `${API_HOST}${path}`;
   // otherwise assume it's a relative media path

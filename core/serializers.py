@@ -30,18 +30,31 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class RestaurantSerializer(serializers.ModelSerializer):
     owner = UserSerializer(read_only=True)
     owner_id = serializers.IntegerField(write_only=True, required=False)
+    logo = serializers.SerializerMethodField()
 
     class Meta:
         model = Restaurant
         fields = ['id', 'owner', 'owner_id', 'name', 'description', 'address', 'phone', 'logo', 'is_active', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
 
+    def get_logo(self, obj):
+        if not obj.logo:
+            return None
+        return obj.logo.url
+
 
 class VisioniaSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = Visinia
         fields = ['id', 'restaurant', 'name', 'description', 'price', 'image', 'is_available', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
+
+    def get_image(self, obj):
+        if not obj.image:
+            return None
+        return obj.image.url
 
 
 class BookingItemSerializer(serializers.ModelSerializer):

@@ -19,6 +19,7 @@ export default function OwnerDashboard() {
   const [success, setSuccess] = useState('');
   const [editingRestaurant, setEditingRestaurant] = useState(null);
   const [editingVisinia, setEditingVisinia] = useState(null);
+  const [selectedGalleryImage, setSelectedGalleryImage] = useState(null);
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const [formData, setFormData] = useState({
@@ -65,6 +66,12 @@ export default function OwnerDashboard() {
         const res = await visioniaAPI.list();
         const ownerRes = await restaurantAPI.myRestaurants();
         const ownerIds = ownerRes.data.map(r => r.id);
+        setVisiinias(res.data.filter(v => ownerIds.includes(v.restaurant)));
+      } else if (tab === 'gallery') {
+        const ownerRes = await restaurantAPI.myRestaurants();
+        setRestaurants(ownerRes.data);
+        const ownerIds = ownerRes.data.map(r => r.id);
+        const res = await visioniaAPI.list();
         setVisiinias(res.data.filter(v => ownerIds.includes(v.restaurant)));
       } else if (tab === 'bookings') {
         const res = await bookingAPI.list();
@@ -318,6 +325,25 @@ export default function OwnerDashboard() {
     }
   };
 
+  const galleryImages = [
+    ...restaurants
+      .filter((restaurant) => !!restaurant.logo)
+      .map((restaurant) => ({
+        id: `restaurant-${restaurant.id}`,
+        title: restaurant.name,
+        subtitle: 'Restaurant logo',
+        image: restaurant.logo,
+      })),
+    ...visiinias
+      .filter((visinia) => !!visinia.image)
+      .map((visinia) => ({
+        id: `visinia-${visinia.id}`,
+        title: visinia.name,
+        subtitle: 'Menu image',
+        image: visinia.image,
+      })),
+  ];
+
   return (
     <div className="owner-dashboard">
       {/* Header */}
@@ -362,6 +388,13 @@ export default function OwnerDashboard() {
             >
               <span className="nav-icon">📋</span>
               <span>Orders</span>
+            </button>
+            <button
+              className={`nav-item ${activeTab === 'gallery' ? 'active' : ''}`}
+              onClick={() => setActiveTab('gallery')}
+            >
+              <span className="nav-icon">IMG</span>
+              <span>Gallery</span>
             </button>
           </nav>
         </aside>
@@ -589,6 +622,40 @@ export default function OwnerDashboard() {
                       </div>
                     ))}
                   </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === 'gallery' && (
+            <div className="content-section">
+              <div className="section-header">
+                <h1>Uploaded Pictures</h1>
+              </div>
+
+              {loading ? (
+                <div className="loading-state">Loading...</div>
+              ) : galleryImages.length === 0 ? (
+                <div className="empty-state">
+                  <div className="empty-icon">IMG</div>
+                  <h3>No pictures uploaded yet</h3>
+                  <p>Upload restaurant logos and menu images to see them here</p>
+                </div>
+              ) : (
+                <div className="gallery-grid">
+                  {galleryImages.map((item) => (
+                    <button
+                      key={item.id}
+                      className="gallery-card"
+                      onClick={() => setSelectedGalleryImage(item)}
+                    >
+                      <img src={buildImageUrl(item.image)} alt={item.title} />
+                      <div className="gallery-meta">
+                        <h4>{item.title}</h4>
+                        <p>{item.subtitle}</p>
+                      </div>
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
@@ -903,6 +970,31 @@ export default function OwnerDashboard() {
           </div>
         </div>
       )}
+
+      {selectedGalleryImage && (
+        <div className="modal-overlay" onClick={() => setSelectedGalleryImage(null)}>
+          <div className="modal gallery-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>{selectedGalleryImage.title}</h2>
+              <button
+                className="close-btn"
+                onClick={() => setSelectedGalleryImage(null)}
+              >
+                Close
+              </button>
+            </div>
+            <div className="gallery-preview">
+              <img
+                src={buildImageUrl(selectedGalleryImage.image)}
+                alt={selectedGalleryImage.title}
+              />
+              <p>{selectedGalleryImage.subtitle}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
+
