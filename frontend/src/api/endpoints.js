@@ -8,7 +8,7 @@ export const authAPI = {
     apiClient.post('/register/', userData),
 
   registerOwner: (userData) =>
-    apiClient.post('/admin/register-owner/', userData),
+    apiClient.post('/register-owner/', userData),
   
   me: () => apiClient.get('/users/me/'),
   
