@@ -20,6 +20,7 @@ export default function OwnerDashboard() {
   const [editingRestaurant, setEditingRestaurant] = useState(null);
   const [editingVisinia, setEditingVisinia] = useState(null);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState(null);
+  const [failedImages, setFailedImages] = useState({});
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const [formData, setFormData] = useState({
@@ -427,8 +428,12 @@ export default function OwnerDashboard() {
                   {restaurants.map(restaurant => (
                     <div key={restaurant.id} className="restaurant-card">
                       <div className="card-image">
-                        {restaurant.logo ? (
-                          <img src={buildImageUrl(restaurant.logo)} alt={restaurant.name} />
+                        {restaurant.logo && !failedImages[`restaurant-${restaurant.id}`] ? (
+                          <img
+                            src={buildImageUrl(restaurant.logo)}
+                            alt={restaurant.name}
+                            onError={() => setFailedImages((prev) => ({ ...prev, [`restaurant-${restaurant.id}`]: true }))}
+                          />
                         ) : (
                           <div className="image-placeholder">🏪</div>
                         )}
@@ -510,8 +515,12 @@ export default function OwnerDashboard() {
                   {visiinias.map(visinia => (
                     <div key={visinia.id} className="item-card">
                       <div className="card-image">
-                        {visinia.image ? (
-                          <img src={buildImageUrl(visinia.image)} alt={visinia.name} />
+                        {visinia.image && !failedImages[`visinia-${visinia.id}`] ? (
+                          <img
+                            src={buildImageUrl(visinia.image)}
+                            alt={visinia.name}
+                            onError={() => setFailedImages((prev) => ({ ...prev, [`visinia-${visinia.id}`]: true }))}
+                          />
                         ) : (
                           <div className="image-placeholder">🍽️</div>
                         )}
@@ -649,7 +658,15 @@ export default function OwnerDashboard() {
                       className="gallery-card"
                       onClick={() => setSelectedGalleryImage(item)}
                     >
-                      <img src={buildImageUrl(item.image)} alt={item.title} />
+                      {failedImages[`gallery-${item.id}`] ? (
+                        <div className="image-placeholder">IMG</div>
+                      ) : (
+                        <img
+                          src={buildImageUrl(item.image)}
+                          alt={item.title}
+                          onError={() => setFailedImages((prev) => ({ ...prev, [`gallery-${item.id}`]: true }))}
+                        />
+                      )}
                       <div className="gallery-meta">
                         <h4>{item.title}</h4>
                         <p>{item.subtitle}</p>
@@ -984,10 +1001,15 @@ export default function OwnerDashboard() {
               </button>
             </div>
             <div className="gallery-preview">
-              <img
-                src={buildImageUrl(selectedGalleryImage.image)}
-                alt={selectedGalleryImage.title}
-              />
+              {failedImages[`preview-${selectedGalleryImage.id}`] ? (
+                <div className="image-placeholder">IMG</div>
+              ) : (
+                <img
+                  src={buildImageUrl(selectedGalleryImage.image)}
+                  alt={selectedGalleryImage.title}
+                  onError={() => setFailedImages((prev) => ({ ...prev, [`preview-${selectedGalleryImage.id}`]: true }))}
+                />
+              )}
               <p>{selectedGalleryImage.subtitle}</p>
             </div>
           </div>
@@ -996,5 +1018,6 @@ export default function OwnerDashboard() {
     </div>
   );
 }
+
 
 

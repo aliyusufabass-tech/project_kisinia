@@ -1,8 +1,21 @@
 import axios from 'axios';
 
-const RAW_API_HOST = (import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000').replace(/\/+$/, '');
-// Accept both host-only values and values that already end with /api.
-const API_HOST = RAW_API_HOST.replace(/\/api$/, '');
+const FALLBACK_API_HOST =
+  typeof window !== 'undefined' && window.location.hostname.endsWith('vercel.app')
+    ? 'https://project-kisinia.onrender.com'
+    : 'http://127.0.0.1:8000';
+
+const RAW_API_HOST = (import.meta.env.VITE_API_URL || FALLBACK_API_HOST).replace(/\/+$/, '');
+
+function normalizeApiHost(host) {
+  const withoutApi = host.replace(/\/api$/, '');
+  if (typeof window !== 'undefined' && window.location.protocol === 'https:' && withoutApi.startsWith('http://')) {
+    return withoutApi.replace(/^http:\/\//, 'https://');
+  }
+  return withoutApi;
+}
+
+const API_HOST = normalizeApiHost(RAW_API_HOST);
 const BASE_URL = API_HOST + '/api';
 
 // Build absolute image URL from serializer path or full URL
