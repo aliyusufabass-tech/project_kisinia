@@ -96,11 +96,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return value
 
     def validate_role(self, value):
-        """Prevent ADMIN role registration through API"""
-        if value == 'ADMIN':
+        """Allow only customer self-registration through public API."""
+        if value != 'CUSTOMER':
             raise serializers.ValidationError(
-                "Administrator accounts cannot be created through public registration. "
-                "Please contact a system administrator."
+                "Only customer accounts can be created through public registration."
             )
         return value
 

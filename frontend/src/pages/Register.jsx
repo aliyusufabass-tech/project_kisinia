@@ -4,8 +4,6 @@ import { authAPI } from '../api/endpoints';
 import './Register.css';
 
 export default function Register() {
-  const [selectedRole, setSelectedRole] = useState('');
-  const [showRoleSelection, setShowRoleSelection] = useState(true);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -13,33 +11,12 @@ export default function Register() {
     last_name: '',
     password: '',
     password_confirm: '',
-    role: '',
+    role: 'CUSTOMER',
     phone: ''
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
-  const roles = [
-    {
-      value: 'CUSTOMER',
-      label: 'Customer',
-      description: 'Order food from restaurants',
-      icon: '🍽️'
-    },
-    {
-      value: 'RESTAURANT_OWNER',
-      label: 'Restaurant Owner',
-      description: 'Manage your restaurant and menu',
-      icon: '🏪'
-    }
-  ];
-
-  const handleRoleSelect = (role) => {
-    setSelectedRole(role);
-    setFormData({ ...formData, role });
-    setShowRoleSelection(false);
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -54,9 +31,8 @@ export default function Register() {
     try {
       const response = await authAPI.register(formData);
       if (response.data) {
-        // Registration successful, redirect to login
-        navigate('/login', { 
-          state: { message: 'Registration successful! Please login.' } 
+        navigate('/login', {
+          state: { message: 'Registration successful! Please login.' }
         });
       }
     } catch (err) {
@@ -65,7 +41,6 @@ export default function Register() {
         if (typeof errorData === 'string') {
           setError(errorData);
         } else if (typeof errorData === 'object') {
-          // Handle field-specific errors
           const errorMessages = Object.entries(errorData)
             .map(([field, messages]) => `${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`)
             .join('\n');
@@ -79,66 +54,12 @@ export default function Register() {
     }
   };
 
-  const backToRoleSelection = () => {
-    setShowRoleSelection(true);
-    setSelectedRole('');
-    setFormData({ ...formData, role: '' });
-  };
-
-  if (showRoleSelection) {
-    return (
-      <div className="register-container">
-        <div className="register-card">
-          <h1 className="register-title">Join Kisinia</h1>
-          <p className="register-subtitle">Choose your role to get started</p>
-          
-          <div className="role-selection">
-            {roles.map((role) => (
-              <button
-                key={role.value}
-                className="role-card"
-                onClick={() => handleRoleSelect(role.value)}
-              >
-                <div className="role-icon">{role.icon}</div>
-                <h3>{role.label}</h3>
-                <p>{role.description}</p>
-              </button>
-            ))}
-          </div>
-
-          <div className="register-footer">
-            <p>
-              Already have an account?{' '}
-              <Link to="/login" className="login-link">
-                Login here
-              </Link>
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const selectedRoleData = roles.find(r => r.value === selectedRole);
-
   return (
     <div className="register-container">
       <div className="register-card">
-        <div className="register-header">
-          <button 
-            className="back-button" 
-            onClick={backToRoleSelection}
-          >
-            ← Back
-          </button>
-          <div className="selected-role">
-            <span className="role-icon">{selectedRoleData.icon}</span>
-            <span>Register as {selectedRoleData.label}</span>
-          </div>
-        </div>
-
         <h2 className="register-title">Create Account</h2>
-        
+        <p className="register-subtitle">Customer registration</p>
+
         {error && <div className="error-message">{error}</div>}
 
         <form onSubmit={handleSubmit} className="register-form">
@@ -228,8 +149,8 @@ export default function Register() {
             />
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="register-button"
             disabled={loading}
           >
