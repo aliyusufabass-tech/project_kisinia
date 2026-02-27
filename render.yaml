@@ -5,6 +5,10 @@ services:
     plan: free
     buildCommand: "pip install -r requirement.txt"
     startCommand: "python manage.py migrate && python manage.py runserver 0.0.0.0:$PORT"
+    disks:
+      - name: media
+        mountPath: /var/data/media
+        sizeGB: 1
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.8
@@ -16,3 +20,5 @@ services:
         value: "postgresql://neondb_owner:npg_mwoEn5Jdgrk9@ep-misty-art-ai0c9ci4-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
       - key: ALLOWED_HOSTS
         value: project-kisinia.onrender.com
+      - key: MEDIA_ROOT
+        value: /var/data/media
