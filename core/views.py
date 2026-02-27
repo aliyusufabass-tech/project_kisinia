@@ -74,8 +74,15 @@ class RestaurantViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        # Restaurant owners see their restaurants, customers see all active ones
-        # Ensure a UserProfile exists to avoid RelatedObjectDoesNotExist
+        # Image endpoint must work without auth header from <img src="...">.
+        if getattr(self, 'action', None) == 'logo_file':
+            return Restaurant.objects.all()
+
+        # Public/anonymous users should only see active restaurants.
+        if not self.request.user.is_authenticated:
+            return Restaurant.objects.filter(is_active=True)
+
+        # Restaurant owners see their restaurants, others see active ones.
         user_profile, _ = UserProfile.objects.get_or_create(user=self.request.user)
         if user_profile.role == 'RESTAURANT_OWNER':
             return Restaurant.objects.filter(owner=self.request.user)
@@ -118,8 +125,15 @@ class VisioniaViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        # Restaurant owners see their visiinias, customers see available ones
-        # Ensure a UserProfile exists to avoid RelatedObjectDoesNotExist
+        # Image endpoint must work without auth header from <img src="...">.
+        if getattr(self, 'action', None) == 'image_file':
+            return Visinia.objects.all()
+
+        # Public/anonymous users should only see available items.
+        if not self.request.user.is_authenticated:
+            return Visinia.objects.filter(is_available=True)
+
+        # Restaurant owners see their visiinias, customers see available ones.
         user_profile, _ = UserProfile.objects.get_or_create(user=self.request.user)
         if user_profile.role == 'RESTAURANT_OWNER':
             return Visinia.objects.filter(restaurant__owner=self.request.user)
