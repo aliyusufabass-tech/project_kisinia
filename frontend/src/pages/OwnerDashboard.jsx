@@ -11,7 +11,6 @@ export default function OwnerDashboard() {
   const [visiinias, setVisiinias] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [showAddRestaurant, setShowAddRestaurant] = useState(false);
   const [showEditRestaurant, setShowEditRestaurant] = useState(false);
   const [showAddVisinia, setShowAddVisinia] = useState(false);
   const [showEditVisinia, setShowEditVisinia] = useState(false);
@@ -19,7 +18,6 @@ export default function OwnerDashboard() {
   const [success, setSuccess] = useState('');
   const [editingRestaurant, setEditingRestaurant] = useState(null);
   const [editingVisinia, setEditingVisinia] = useState(null);
-  const [selectedGalleryImage, setSelectedGalleryImage] = useState(null);
   const [failedImages, setFailedImages] = useState({});
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -68,12 +66,6 @@ export default function OwnerDashboard() {
         const ownerRes = await restaurantAPI.myRestaurants();
         const ownerIds = ownerRes.data.map(r => r.id);
         setVisiinias(res.data.filter(v => ownerIds.includes(v.restaurant)));
-      } else if (tab === 'gallery') {
-        const ownerRes = await restaurantAPI.myRestaurants();
-        setRestaurants(ownerRes.data);
-        const ownerIds = ownerRes.data.map(r => r.id);
-        const res = await visioniaAPI.list();
-        setVisiinias(res.data.filter(v => ownerIds.includes(v.restaurant)));
       } else if (tab === 'bookings') {
         const res = await bookingAPI.list();
         setBookings(res.data);
@@ -98,34 +90,6 @@ export default function OwnerDashboard() {
     return Object.entries(errorData)
       .map(([field, messages]) => `${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`)
       .join('\n');
-  };
-
-  const handleAddRestaurant = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
-    
-    if (!formData.name || !formData.address || !formData.phone) {
-      setError('Please fill in all required fields');
-      return;
-    }
-
-    try {
-      const data = new FormData();
-      data.append('name', formData.name);
-      data.append('description', formData.description);
-      data.append('address', formData.address);
-      data.append('phone', formData.phone);
-      if (formData.logo) data.append('logo', formData.logo);
-
-      await restaurantAPI.create(data);
-      setFormData({ name: '', description: '', address: '', phone: '', logo: null });
-      setShowAddRestaurant(false);
-      setSuccess('Restaurant added successfully!');
-      fetchData('restaurants');
-    } catch (err) {
-      setError(parseApiError(err, 'Failed to add restaurant'));
-    }
   };
 
   const handleEditRestaurant = async (e) => {
@@ -336,25 +300,6 @@ export default function OwnerDashboard() {
     }
   };
 
-  const galleryImages = [
-    ...restaurants
-      .filter((restaurant) => !!(restaurant.logo_file_url || restaurant.logo))
-      .map((restaurant) => ({
-        id: `restaurant-${restaurant.id}`,
-        title: restaurant.name,
-        subtitle: 'Restaurant logo',
-        image: restaurant.logo_file_url || restaurant.logo,
-      })),
-    ...visiinias
-      .filter((visinia) => !!(visinia.image_file_url || visinia.image))
-      .map((visinia) => ({
-        id: `visinia-${visinia.id}`,
-        title: visinia.name,
-        subtitle: 'Menu image',
-        image: visinia.image_file_url || visinia.image,
-      })),
-  ];
-
   return (
     <div className="owner-dashboard">
       {/* Header */}
@@ -400,13 +345,6 @@ export default function OwnerDashboard() {
               <span className="nav-icon">📋</span>
               <span>Orders</span>
             </button>
-            <button
-              className={`nav-item ${activeTab === 'gallery' ? 'active' : ''}`}
-              onClick={() => setActiveTab('gallery')}
-            >
-              <span className="nav-icon">IMG</span>
-              <span>Gallery</span>
-            </button>
           </nav>
         </aside>
 
@@ -416,13 +354,6 @@ export default function OwnerDashboard() {
             <div className="content-section">
               <div className="section-header">
                 <h1>My Restaurants</h1>
-                <button 
-                  className="add-btn"
-                  onClick={() => setShowAddRestaurant(true)}
-                >
-                  <span>+</span>
-                  <span>Add Restaurant</span>
-                </button>
               </div>
 
               {loading ? (
@@ -431,7 +362,7 @@ export default function OwnerDashboard() {
                 <div className="empty-state">
                   <div className="empty-icon">🏪</div>
                   <h3>No restaurants yet</h3>
-                  <p>Add your first restaurant to get started</p>
+                  <p>Admin will assign restaurants to owners.</p>
                 </div>
               ) : (
                 <div className="restaurants-grid">
@@ -646,124 +577,9 @@ export default function OwnerDashboard() {
             </div>
           )}
 
-          {activeTab === 'gallery' && (
-            <div className="content-section">
-              <div className="section-header">
-                <h1>Uploaded Pictures</h1>
-              </div>
-
-              {loading ? (
-                <div className="loading-state">Loading...</div>
-              ) : galleryImages.length === 0 ? (
-                <div className="empty-state">
-                  <div className="empty-icon">IMG</div>
-                  <h3>No pictures uploaded yet</h3>
-                  <p>Upload restaurant logos and menu images to see them here</p>
-                </div>
-              ) : (
-                <div className="gallery-grid">
-                  {galleryImages.map((item) => (
-                    <button
-                      key={item.id}
-                      className="gallery-card"
-                      onClick={() => setSelectedGalleryImage(item)}
-                    >
-                      {failedImages[`gallery-${item.id}`] ? (
-                        <div className="image-placeholder">IMG</div>
-                      ) : (
-                        <img
-                          src={buildImageUrl(item.image)}
-                          alt={item.title}
-                          onError={() => setFailedImages((prev) => ({ ...prev, [`gallery-${item.id}`]: true }))}
-                        />
-                      )}
-                      <div className="gallery-meta">
-                        <h4>{item.title}</h4>
-                        <p>{item.subtitle}</p>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
         </main>
       </div>
 
-      {/* Add Restaurant Modal */}
-      {showAddRestaurant && (
-        <div className="modal-overlay" onClick={() => setShowAddRestaurant(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>Add New Restaurant</h2>
-              <button 
-                className="close-btn" 
-                onClick={() => setShowAddRestaurant(false)}
-              >
-                ×
-              </button>
-            </div>
-            <form onSubmit={handleAddRestaurant} className="modal-form">
-              <div className="form-group">
-                <label>Restaurant Name *</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  required
-                  placeholder="Enter restaurant name"
-                />
-              </div>
-              <div className="form-group">
-                <label>Description</label>
-                <textarea
-                  value={formData.description}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
-                  placeholder="Describe your restaurant"
-                  rows={3}
-                />
-              </div>
-              <div className="form-group">
-                <label>Address *</label>
-                <input
-                  type="text"
-                  value={formData.address}
-                  onChange={(e) => setFormData({...formData, address: e.target.value})}
-                  required
-                  placeholder="Enter address"
-                />
-              </div>
-              <div className="form-group">
-                <label>Phone *</label>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  required
-                  placeholder="Enter phone number"
-                />
-              </div>
-              <div className="form-group">
-                <label>Logo</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setFormData({...formData, logo: e.target.files[0]})}
-                  className="file-input"
-                />
-              </div>
-              <div className="modal-actions">
-                <button type="button" className="btn-secondary" onClick={() => setShowAddRestaurant(false)}>
-                  Cancel
-                </button>
-                <button type="submit" className="btn-primary">
-                  Add Restaurant
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
 
       {/* Edit Restaurant Modal */}
       {showEditRestaurant && (
@@ -998,33 +814,6 @@ export default function OwnerDashboard() {
         </div>
       )}
 
-      {selectedGalleryImage && (
-        <div className="modal-overlay" onClick={() => setSelectedGalleryImage(null)}>
-          <div className="modal gallery-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>{selectedGalleryImage.title}</h2>
-              <button
-                className="close-btn"
-                onClick={() => setSelectedGalleryImage(null)}
-              >
-                Close
-              </button>
-            </div>
-            <div className="gallery-preview">
-              {failedImages[`preview-${selectedGalleryImage.id}`] ? (
-                <div className="image-placeholder">IMG</div>
-              ) : (
-                <img
-                  src={buildImageUrl(selectedGalleryImage.image)}
-                  alt={selectedGalleryImage.title}
-                  onError={() => setFailedImages((prev) => ({ ...prev, [`preview-${selectedGalleryImage.id}`]: true }))}
-                />
-              )}
-              <p>{selectedGalleryImage.subtitle}</p>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -313,7 +313,9 @@
   gap: 12px;
 }
 
-.owner-form-grid input {
+.owner-form-grid input,
+.owner-form-grid select,
+.owner-form-grid textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -323,7 +325,14 @@
   font-size: 14px;
 }
 
-.owner-form-grid input:focus {
+.owner-form-grid textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.owner-form-grid input:focus,
+.owner-form-grid select:focus,
+.owner-form-grid textarea:focus {
   outline: none;
   border-color: rgba(59, 130, 246, 0.6);
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);

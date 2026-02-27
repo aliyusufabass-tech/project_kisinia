@@ -8,9 +8,13 @@ const FALLBACK_API_HOST =
 const RAW_API_HOST = (import.meta.env.VITE_API_URL || FALLBACK_API_HOST).replace(/\/+$/, '');
 
 function normalizeApiHost(host) {
-  let withoutApi = host.replace(/\/api$/, '');
+  let withoutApi = (host || '').replace(/\/+$/, '').replace(/\/api$/, '');
   // In Vercel production, force backend host to Render to avoid broken localhost/http env values.
   if (typeof window !== 'undefined' && window.location.hostname.endsWith('vercel.app')) {
+    // Invalid/relative hosts should never be used in production browser.
+    if (!withoutApi || withoutApi.startsWith('/')) {
+      withoutApi = 'https://project-kisinia.onrender.com';
+    }
     if (withoutApi.includes('vercel.app')) {
       withoutApi = 'https://project-kisinia.onrender.com';
     }

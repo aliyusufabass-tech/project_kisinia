@@ -19,6 +19,9 @@ export default function AdminDashboard() {
   const [showDescriptionModal, setShowDescriptionModal] = useState(false);
   const [selectedDescription, setSelectedDescription] = useState({ title: '', content: '' });
   const [ownerSubmitting, setOwnerSubmitting] = useState(false);
+  const [showAddRestaurant, setShowAddRestaurant] = useState(false);
+  const [restaurantSubmitting, setRestaurantSubmitting] = useState(false);
+  const [ownerUsers, setOwnerUsers] = useState([]);
   const [ownerForm, setOwnerForm] = useState({
     first_name: '',
     last_name: '',
@@ -27,6 +30,14 @@ export default function AdminDashboard() {
     phone: '',
     password: '',
     password_confirm: '',
+  });
+  const [restaurantForm, setRestaurantForm] = useState({
+    name: '',
+    description: '',
+    address: '',
+    phone: '',
+    owner_id: '',
+    logo: null,
   });
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -52,8 +63,12 @@ export default function AdminDashboard() {
     setLoading(true);
     try {
       if (tab === 'restaurants') {
-        const res = await restaurantAPI.list();
-        setRestaurants(res.data);
+        const [restaurantRes, usersRes] = await Promise.all([
+          restaurantAPI.list(),
+          userAPI.list()
+        ]);
+        setRestaurants(restaurantRes.data);
+        setOwnerUsers(usersRes.data.filter(u => u.profile?.role === 'RESTAURANT_OWNER'));
       } else if (tab === 'users') {
         const res = await userAPI.list();
         setUsers(res.data);
@@ -106,6 +121,48 @@ export default function AdminDashboard() {
       fetchData('bookings');
     } catch (err) {
       setError('Failed to cancel booking');
+    }
+  };
+
+  const handleRestaurantInputChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === 'logo') {
+      setRestaurantForm((prev) => ({ ...prev, logo: files?.[0] || null }));
+      return;
+    }
+    setRestaurantForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAdminAddRestaurant = async (e) => {
+    e.preventDefault();
+    setRestaurantSubmitting(true);
+    setError('');
+    setSuccess('');
+    try {
+      const data = new FormData();
+      data.append('name', restaurantForm.name);
+      data.append('description', restaurantForm.description || '');
+      data.append('address', restaurantForm.address);
+      data.append('phone', restaurantForm.phone);
+      data.append('owner_id', restaurantForm.owner_id);
+      if (restaurantForm.logo) data.append('logo', restaurantForm.logo);
+
+      await restaurantAPI.create(data);
+      setSuccess('Restaurant added successfully!');
+      setShowAddRestaurant(false);
+      setRestaurantForm({
+        name: '',
+        description: '',
+        address: '',
+        phone: '',
+        owner_id: '',
+        logo: null,
+      });
+      fetchData('restaurants');
+    } catch (err) {
+      setError(parseApiError(err, 'Failed to add restaurant'));
+    } finally {
+      setRestaurantSubmitting(false);
     }
   };
 
@@ -309,6 +366,9 @@ export default function AdminDashboard() {
               <div>
                 <div className="section-header">
                   <h1>Restaurants Management</h1>
+                  <button className="action-btn complete" onClick={() => setShowAddRestaurant(true)}>
+                    Add Restaurant
+                  </button>
                 </div>
                 {loading ? (
                   <div className="loading-state">Loading restaurants...</div>
@@ -638,6 +698,82 @@ export default function AdminDashboard() {
           </div>
         </main>
       </div>
+
+      {/* Description Modal */}
+      {showAddRestaurant && (
+        <div className="modal-overlay" onClick={() => setShowAddRestaurant(false)}>
+          <div className="description-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Add Restaurant (Admin)</h2>
+              <button className="close-btn" onClick={() => setShowAddRestaurant(false)}>
+                ×
+              </button>
+            </div>
+            <form onSubmit={handleAdminAddRestaurant} className="modal-content">
+              <div className="owner-form-grid">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Restaurant name"
+                  value={restaurantForm.name}
+                  onChange={handleRestaurantInputChange}
+                  required
+                />
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="Address"
+                  value={restaurantForm.address}
+                  onChange={handleRestaurantInputChange}
+                  required
+                />
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="Phone"
+                  value={restaurantForm.phone}
+                  onChange={handleRestaurantInputChange}
+                  required
+                />
+                <select
+                  name="owner_id"
+                  value={restaurantForm.owner_id}
+                  onChange={handleRestaurantInputChange}
+                  required
+                >
+                  <option value="">Select owner</option>
+                  {ownerUsers.map((u) => (
+                    <option key={u.id} value={u.id}>
+                      {u.username}
+                    </option>
+                  ))}
+                </select>
+                <textarea
+                  name="description"
+                  placeholder="Description (optional)"
+                  value={restaurantForm.description}
+                  onChange={handleRestaurantInputChange}
+                  rows={3}
+                />
+                <input
+                  type="file"
+                  name="logo"
+                  accept="image/*"
+                  onChange={handleRestaurantInputChange}
+                />
+              </div>
+              <div className="modal-actions">
+                <button type="button" className="btn-primary" onClick={() => setShowAddRestaurant(false)}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn-primary" disabled={restaurantSubmitting}>
+                  {restaurantSubmitting ? 'Adding...' : 'Add Restaurant'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Description Modal */}
       {showDescriptionModal && (

@@ -5,6 +5,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.http import FileResponse, Http404
+from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import PermissionDenied, ValidationError
 
 from .models import UserProfile, Restaurant, Visinia, Booking, BookingItem
 from .serializers import (
@@ -89,8 +91,20 @@ class RestaurantViewSet(viewsets.ModelViewSet):
         return Restaurant.objects.filter(is_active=True)
 
     def perform_create(self, serializer):
-        """Set the owner to current user"""
-        serializer.save(owner=self.request.user)
+        """Only staff can create restaurants and assign owner."""
+        if not self.request.user.is_staff:
+            raise PermissionDenied("Only admin/staff can add restaurants.")
+
+        owner_id = self.request.data.get('owner_id')
+        if not owner_id:
+            raise ValidationError({"owner_id": "owner_id is required when creating a restaurant."})
+
+        owner = get_object_or_404(User, id=owner_id)
+        owner_profile, _ = UserProfile.objects.get_or_create(user=owner)
+        if owner_profile.role != 'RESTAURANT_OWNER':
+            raise ValidationError({"owner_id": "Selected owner must have RESTAURANT_OWNER role."})
+
+        serializer.save(owner=owner)
 
     def perform_update(self, serializer):
         """Only allow owner to update"""
