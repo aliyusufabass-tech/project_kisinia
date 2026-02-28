@@ -625,8 +625,8 @@ export default function OwnerDashboard() {
                 />
               </div>
               <div className="form-group">
-                <label>Logo</label>
-                <p className="auto-image-note">Logo inawekwa automatic kutoka picha za project.</p>
+                <label>Logo (optional)</label>
+                <p className="auto-image-note">Hakuna picha ya lazima.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowEditRestaurant(false)}>
@@ -699,8 +699,8 @@ export default function OwnerDashboard() {
                 />
               </div>
               <div className="form-group">
-                <label>Image</label>
-                <p className="auto-image-note">Picha itawekwa automatic kutoka picha za project.</p>
+                <label>Image (optional)</label>
+                <p className="auto-image-note">Hakuna picha ya lazima.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowAddVisinia(false)}>
@@ -773,8 +773,8 @@ export default function OwnerDashboard() {
                 />
               </div>
               <div className="form-group">
-                <label>Image</label>
-                <p className="auto-image-note">Picha ya menu imepangwa automatic na mfumo.</p>
+                <label>Image (optional)</label>
+                <p className="auto-image-note">Hakuna picha ya lazima.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowEditVisinia(false)}>
