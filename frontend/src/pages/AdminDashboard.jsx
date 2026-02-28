@@ -4,6 +4,18 @@ import { authAPI, userAPI, restaurantAPI, visioniaAPI, bookingAPI } from '../api
 import { buildImageUrl } from '../api/client';
 import './AdminDashboard.css';
 
+const RESTAURANT_LOGO_OPTIONS = [
+  'restaurants/Image_fx_3.png',
+  'restaurants/Image_fx_4.png',
+  'restaurants/Image_fx_9.png',
+  'restaurants/poaz_logo.jpg',
+  'restaurants/taste_me.jpeg',
+];
+
+function imageOptionLabel(path) {
+  return path.split('/').pop().replace(/\.[^.]+$/, '').replace(/_/g, ' ');
+}
+
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('restaurants');
@@ -37,6 +49,7 @@ export default function AdminDashboard() {
     address: '',
     phone: '',
     owner_id: '',
+    logo_choice: '__auto__',
   });
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -140,6 +153,7 @@ export default function AdminDashboard() {
         address: restaurantForm.address,
         phone: restaurantForm.phone,
         owner_id: restaurantForm.owner_id,
+        logo_choice: restaurantForm.logo_choice,
       });
       setSuccess('Restaurant added successfully!');
       setShowAddRestaurant(false);
@@ -149,6 +163,7 @@ export default function AdminDashboard() {
         address: '',
         phone: '',
         owner_id: '',
+        logo_choice: '__auto__',
       });
       fetchData('restaurants');
     } catch (err) {
@@ -380,8 +395,12 @@ export default function AdminDashboard() {
                           <div className="table-cell">
                             <div className="restaurant-info">
                               <div className="restaurant-avatar">
-                                {(restaurant.logo_file_url || restaurant.logo) ? (
-                                  <img src={buildImageUrl(restaurant.logo_file_url || restaurant.logo)} alt={restaurant.name} />
+                                {(restaurant.logo_file_url || restaurant.logo) && !failedImages[`restaurant-${restaurant.id}`] ? (
+                                  <img
+                                    src={buildImageUrl(restaurant.logo_file_url || restaurant.logo)}
+                                    alt={restaurant.name}
+                                    onError={() => setFailedImages((prev) => ({ ...prev, [`restaurant-${restaurant.id}`]: true }))}
+                                  />
                                 ) : (
                                   <span>🏪</span>
                                 )}
@@ -747,7 +766,24 @@ export default function AdminDashboard() {
                   onChange={handleRestaurantInputChange}
                   rows={3}
                 />
-                <p className="helper-text">Logo itawekwa automatic kutoka picha za project.</p>
+                <select
+                  name="logo_choice"
+                  value={restaurantForm.logo_choice}
+                  onChange={handleRestaurantInputChange}
+                >
+                  <option value="__auto__">Auto choose Kisinia logo</option>
+                  {RESTAURANT_LOGO_OPTIONS.map((path) => (
+                    <option key={path} value={path}>{imageOptionLabel(path)}</option>
+                  ))}
+                </select>
+                {restaurantForm.logo_choice && restaurantForm.logo_choice !== '__auto__' && (
+                  <img
+                    src={buildImageUrl(restaurantForm.logo_choice)}
+                    alt="Selected logo preview"
+                    style={{ marginTop: 8, width: '100%', maxHeight: 140, objectFit: 'cover', borderRadius: 8 }}
+                  />
+                )}
+                <p className="helper-text">Chagua logo unayotaka kutoka picha zilizopo.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-primary" onClick={() => setShowAddRestaurant(false)}>
