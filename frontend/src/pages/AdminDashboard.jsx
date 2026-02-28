@@ -5,9 +5,7 @@ import { buildImageUrl } from '../api/client';
 import './AdminDashboard.css';
 
 const RESTAURANT_LOGO_OPTIONS = [
-  'restaurants/Image_fx_3.png',
-  'restaurants/Image_fx_4.png',
-  'restaurants/Image_fx_9.png',
+  
   'restaurants/poaz_logo.jpg',
   'restaurants/taste_me.jpeg',
 ];
@@ -783,7 +781,7 @@ export default function AdminDashboard() {
                     style={{ marginTop: 8, width: '100%', maxHeight: 140, objectFit: 'cover', borderRadius: 8 }}
                   />
                 )}
-                <p className="helper-text">Chagua logo unayotaka kutoka picha zilizopo.</p>
+                <p className="helper-text">Choose your logo of restaurant.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-primary" onClick={() => setShowAddRestaurant(false)}>
