@@ -4,6 +4,28 @@ import { restaurantAPI, visioniaAPI, bookingAPI } from '../api/endpoints';
 import { buildImageUrl } from '../api/client';
 import './OwnerDashboard.css';
 
+const RESTAURANT_LOGO_OPTIONS = [
+  'restaurants/Image_fx_3.png',
+  'restaurants/Image_fx_4.png',
+  'restaurants/Image_fx_9.png',
+  'restaurants/poaz_logo.jpg',
+  'restaurants/taste_me.jpeg',
+];
+
+const VISINIA_IMAGE_OPTIONS = [
+  'visiinias/kisinia_cha_kushiba.png',
+  'visiinias/kisinia_cha_kujiramba.png',
+  'visiinias/kisinia_cha_mzuka.png',
+  'visiinias/kisinia_cha_poaz.png',
+  'visiinias/kisinia_cha_washkaji.png',
+  'visiinias/Image_fx_11.png',
+  'visiinias/Image_fx_7.png',
+];
+
+function imageOptionLabel(path) {
+  return path.split('/').pop().replace(/\.[^.]+$/, '').replace(/_/g, ' ');
+}
+
 export default function OwnerDashboard() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('restaurants');
@@ -26,6 +48,7 @@ export default function OwnerDashboard() {
     description: '',
     address: '',
     phone: '',
+    logo_choice: '',
   });
 
   const [visioniaData, setVisioniaData] = useState({
@@ -33,6 +56,7 @@ export default function OwnerDashboard() {
     description: '',
     price: '',
     restaurant: '',
+    image_choice: '__auto__',
   });
 
   useEffect(() => {
@@ -106,8 +130,9 @@ export default function OwnerDashboard() {
         description: formData.description,
         address: formData.address,
         phone: formData.phone,
+        logo_choice: formData.logo_choice,
       });
-      setFormData({ name: '', description: '', address: '', phone: '' });
+      setFormData({ name: '', description: '', address: '', phone: '', logo_choice: '' });
       setEditingRestaurant(null);
       setShowEditRestaurant(false);
       setSuccess('Restaurant updated successfully!');
@@ -156,6 +181,7 @@ export default function OwnerDashboard() {
       description: restaurant.description || '',
       address: restaurant.address,
       phone: restaurant.phone,
+      logo_choice: '',
     });
     setShowEditRestaurant(true);
   };
@@ -176,8 +202,9 @@ export default function OwnerDashboard() {
         description: visioniaData.description,
         price: visioniaData.price,
         restaurant: visioniaData.restaurant,
+        image_choice: visioniaData.image_choice,
       });
-      setVisioniaData({ name: '', description: '', price: '', restaurant: '' });
+      setVisioniaData({ name: '', description: '', price: '', restaurant: '', image_choice: '__auto__' });
       setShowAddVisinia(false);
       setSuccess('Menu item added successfully!');
       fetchData('visiinias');
@@ -202,8 +229,9 @@ export default function OwnerDashboard() {
         description: visioniaData.description,
         price: visioniaData.price,
         restaurant: visioniaData.restaurant,
+        image_choice: visioniaData.image_choice,
       });
-      setVisioniaData({ name: '', description: '', price: '', restaurant: '' });
+      setVisioniaData({ name: '', description: '', price: '', restaurant: '', image_choice: '__auto__' });
       setEditingVisinia(null);
       setShowEditVisinia(false);
       setSuccess('Menu item updated successfully!');
@@ -252,6 +280,7 @@ export default function OwnerDashboard() {
       description: visinia.description || '',
       price: visinia.price,
       restaurant: visinia.restaurant,
+      image_choice: '',
     });
     setShowEditVisinia(true);
   };
@@ -626,7 +655,24 @@ export default function OwnerDashboard() {
               </div>
               <div className="form-group">
                 <label>Logo (optional)</label>
-                <p className="auto-image-note">Ukiacha wazi, mfumo utaweka logo ya mfano ya Kisinia Foods.</p>
+                <select
+                  value={formData.logo_choice}
+                  onChange={(e) => setFormData({ ...formData, logo_choice: e.target.value })}
+                >
+                  <option value="">Keep current logo</option>
+                  <option value="__auto__">Auto choose Kisinia logo</option>
+                  {RESTAURANT_LOGO_OPTIONS.map((path) => (
+                    <option key={path} value={path}>{imageOptionLabel(path)}</option>
+                  ))}
+                </select>
+                {(formData.logo_choice && formData.logo_choice !== '__auto__') && (
+                  <img
+                    src={buildImageUrl(formData.logo_choice)}
+                    alt="Selected logo preview"
+                    style={{ marginTop: 8, width: '100%', maxHeight: 140, objectFit: 'cover', borderRadius: 8 }}
+                  />
+                )}
+                <p className="auto-image-note">Chagua logo kutoka picha zilizopo au acha current.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowEditRestaurant(false)}>
@@ -700,7 +746,23 @@ export default function OwnerDashboard() {
               </div>
               <div className="form-group">
                 <label>Image (optional)</label>
-                <p className="auto-image-note">Ukiacha wazi, mfumo utaweka picha ya mfano ya Kisinia Foods.</p>
+                <select
+                  value={visioniaData.image_choice}
+                  onChange={(e) => setVisioniaData({ ...visioniaData, image_choice: e.target.value })}
+                >
+                  <option value="__auto__">Auto choose Kisinia image</option>
+                  {VISINIA_IMAGE_OPTIONS.map((path) => (
+                    <option key={path} value={path}>{imageOptionLabel(path)}</option>
+                  ))}
+                </select>
+                {(visioniaData.image_choice && visioniaData.image_choice !== '__auto__') && (
+                  <img
+                    src={buildImageUrl(visioniaData.image_choice)}
+                    alt="Selected menu preview"
+                    style={{ marginTop: 8, width: '100%', maxHeight: 160, objectFit: 'cover', borderRadius: 8 }}
+                  />
+                )}
+                <p className="auto-image-note">Chagua picha unayotaka kutoka picha zilizopo.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowAddVisinia(false)}>
@@ -774,7 +836,24 @@ export default function OwnerDashboard() {
               </div>
               <div className="form-group">
                 <label>Image (optional)</label>
-                <p className="auto-image-note">Ukiacha wazi, mfumo utaweka picha ya mfano ya Kisinia Foods.</p>
+                <select
+                  value={visioniaData.image_choice}
+                  onChange={(e) => setVisioniaData({ ...visioniaData, image_choice: e.target.value })}
+                >
+                  <option value="">Keep current image</option>
+                  <option value="__auto__">Auto choose Kisinia image</option>
+                  {VISINIA_IMAGE_OPTIONS.map((path) => (
+                    <option key={path} value={path}>{imageOptionLabel(path)}</option>
+                  ))}
+                </select>
+                {(visioniaData.image_choice && visioniaData.image_choice !== '__auto__') && (
+                  <img
+                    src={buildImageUrl(visioniaData.image_choice)}
+                    alt="Selected menu preview"
+                    style={{ marginTop: 8, width: '100%', maxHeight: 160, objectFit: 'cover', borderRadius: 8 }}
+                  />
+                )}
+                <p className="auto-image-note">Chagua picha mpya au acha current.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowEditVisinia(false)}>

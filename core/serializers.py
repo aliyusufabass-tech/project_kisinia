@@ -83,11 +83,26 @@ class RestaurantSerializer(serializers.ModelSerializer):
     owner = UserSerializer(read_only=True)
     owner_id = serializers.IntegerField(write_only=True, required=False)
     logo = RelativeImageField(required=False, allow_null=True)
+    logo_choice = serializers.CharField(write_only=True, required=False, allow_blank=True)
     logo_file_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Restaurant
-        fields = ['id', 'owner', 'owner_id', 'name', 'description', 'address', 'phone', 'logo', 'logo_file_url', 'is_active', 'created_at', 'updated_at']
+        fields = [
+            'id',
+            'owner',
+            'owner_id',
+            'name',
+            'description',
+            'address',
+            'phone',
+            'logo',
+            'logo_choice',
+            'logo_file_url',
+            'is_active',
+            'created_at',
+            'updated_at',
+        ]
         read_only_fields = ['id', 'created_at', 'updated_at']
 
     def get_logo_file_url(self, obj):
@@ -95,11 +110,23 @@ class RestaurantSerializer(serializers.ModelSerializer):
             return None
         return f"/api/restaurants/{obj.id}/logo_file/"
 
+    def validate_logo_choice(self, value):
+        value = (value or '').strip()
+        if value in ('', '__auto__'):
+            return value
+        if value not in AUTO_RESTAURANT_LOGOS:
+            raise serializers.ValidationError('Invalid restaurant logo choice.')
+        return value
+
     def create(self, validated_data):
+        logo_choice = validated_data.pop('logo_choice', '')
         # If logo not provided, use bundled Kisinia sample logos.
         logo = validated_data.get('logo')
         restaurant = super().create(validated_data)
-        if not logo:
+        if logo_choice and logo_choice != '__auto__':
+            restaurant.logo = logo_choice
+            restaurant.save(update_fields=['logo'])
+        elif logo_choice == '__auto__' or not logo:
             restaurant.logo = pick_auto_media_path(
                 AUTO_RESTAURANT_LOGOS,
                 f"{restaurant.owner_id}-{restaurant.name}-{restaurant.id}",
@@ -107,13 +134,41 @@ class RestaurantSerializer(serializers.ModelSerializer):
             restaurant.save(update_fields=['logo'])
         return restaurant
 
+    def update(self, instance, validated_data):
+        logo_choice = validated_data.pop('logo_choice', None)
+        restaurant = super().update(instance, validated_data)
+        if logo_choice is None or logo_choice == '':
+            return restaurant
+        if logo_choice == '__auto__':
+            restaurant.logo = pick_auto_media_path(
+                AUTO_RESTAURANT_LOGOS,
+                f"{restaurant.owner_id}-{restaurant.name}-{restaurant.id}",
+            )
+        else:
+            restaurant.logo = logo_choice
+        restaurant.save(update_fields=['logo'])
+        return restaurant
+
 class VisioniaSerializer(serializers.ModelSerializer):
     image = RelativeImageField(required=False, allow_null=True)
+    image_choice = serializers.CharField(write_only=True, required=False, allow_blank=True)
     image_file_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Visinia
-        fields = ['id', 'restaurant', 'name', 'description', 'price', 'image', 'image_file_url', 'is_available', 'created_at', 'updated_at']
+        fields = [
+            'id',
+            'restaurant',
+            'name',
+            'description',
+            'price',
+            'image',
+            'image_choice',
+            'image_file_url',
+            'is_available',
+            'created_at',
+            'updated_at',
+        ]
         read_only_fields = ['id', 'created_at', 'updated_at']
 
     def get_image_file_url(self, obj):
@@ -121,16 +176,43 @@ class VisioniaSerializer(serializers.ModelSerializer):
             return None
         return f"/api/visiinias/{obj.id}/image_file/"
 
+    def validate_image_choice(self, value):
+        value = (value or '').strip()
+        if value in ('', '__auto__'):
+            return value
+        if value not in AUTO_VISINIA_IMAGES:
+            raise serializers.ValidationError('Invalid menu image choice.')
+        return value
+
     def create(self, validated_data):
+        image_choice = validated_data.pop('image_choice', '')
         # If image not provided, use bundled Kisinia sample food images.
         image = validated_data.get('image')
         visinia = super().create(validated_data)
-        if not image:
+        if image_choice and image_choice != '__auto__':
+            visinia.image = image_choice
+            visinia.save(update_fields=['image'])
+        elif image_choice == '__auto__' or not image:
             visinia.image = pick_visinia_image_by_name(visinia.name) or pick_auto_media_path(
                 AUTO_VISINIA_IMAGES,
                 f"{visinia.restaurant_id}-{visinia.name}-{visinia.id}",
             )
             visinia.save(update_fields=['image'])
+        return visinia
+
+    def update(self, instance, validated_data):
+        image_choice = validated_data.pop('image_choice', None)
+        visinia = super().update(instance, validated_data)
+        if image_choice is None or image_choice == '':
+            return visinia
+        if image_choice == '__auto__':
+            visinia.image = pick_visinia_image_by_name(visinia.name) or pick_auto_media_path(
+                AUTO_VISINIA_IMAGES,
+                f"{visinia.restaurant_id}-{visinia.name}-{visinia.id}",
+            )
+        else:
+            visinia.image = image_choice
+        visinia.save(update_fields=['image'])
         return visinia
 
 
