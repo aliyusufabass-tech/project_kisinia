@@ -18,8 +18,6 @@ const AUTO_MENU_IMAGES = [
   '/media/visiinias/kisinia_cha_mzuka.png',
   '/media/visiinias/kisinia_cha_poaz.png',
   '/media/visiinias/kisinia_cha_washkaji.png',
-  '/media/visiinias/Image_fx_11.png',
-  '/media/visiinias/Image_fx_7.png',
 ];
 
 function hashSeed(value) {
