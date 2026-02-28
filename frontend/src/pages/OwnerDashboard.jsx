@@ -626,7 +626,7 @@ export default function OwnerDashboard() {
               </div>
               <div className="form-group">
                 <label>Logo (optional)</label>
-                <p className="auto-image-note">Hakuna picha ya lazima.</p>
+                <p className="auto-image-note">Ukiacha wazi, mfumo utaweka logo ya mfano ya Kisinia Foods.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowEditRestaurant(false)}>
@@ -700,7 +700,7 @@ export default function OwnerDashboard() {
               </div>
               <div className="form-group">
                 <label>Image (optional)</label>
-                <p className="auto-image-note">Hakuna picha ya lazima.</p>
+                <p className="auto-image-note">Ukiacha wazi, mfumo utaweka picha ya mfano ya Kisinia Foods.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowAddVisinia(false)}>
@@ -774,7 +774,7 @@ export default function OwnerDashboard() {
               </div>
               <div className="form-group">
                 <label>Image (optional)</label>
-                <p className="auto-image-note">Hakuna picha ya lazima.</p>
+                <p className="auto-image-note">Ukiacha wazi, mfumo utaweka picha ya mfano ya Kisinia Foods.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowEditVisinia(false)}>

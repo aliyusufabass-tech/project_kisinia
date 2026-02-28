@@ -14,7 +14,16 @@ from pathlib import Path
 from datetime import timedelta
 import os
 
-import dj_database_url
+try:
+    import dj_database_url
+except ModuleNotFoundError:
+    dj_database_url = None
+
+try:
+    import drf_yasg  # noqa: F401
+    HAS_DRF_YASG = True
+except ModuleNotFoundError:
+    HAS_DRF_YASG = False
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,11 +49,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'drf_yasg',
     'corsheaders',
 
     'core',
 ]
+
+if HAS_DRF_YASG:
+    INSTALLED_APPS.insert(INSTALLED_APPS.index('corsheaders'), 'drf_yasg')
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -91,12 +102,17 @@ DATABASE_URL = os.getenv(
     'postgresql://neondb_owner:npg_mwoEn5Jdgrk9@ep-misty-art-ai0c9ci4-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
 )
 
-if not DATABASE_URL:
-    raise RuntimeError('DATABASE_URL is required.')
-
-DATABASES = {
-    'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
-}
+if dj_database_url and DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation

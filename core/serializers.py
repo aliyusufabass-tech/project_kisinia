@@ -4,6 +4,47 @@ from django.db import transaction
 import os
 from .models import UserProfile, Restaurant, Visinia, Booking, BookingItem, USER_ROLES
 
+AUTO_RESTAURANT_LOGOS = [
+    'restaurants/Image_fx_3.png',
+    'restaurants/Image_fx_4.png',
+    'restaurants/Image_fx_9.png',
+    'restaurants/poaz_logo.jpg',
+    'restaurants/taste_me.jpeg',
+]
+
+AUTO_VISINIA_IMAGES = [
+    'visiinias/kisinia_cha_kushiba.png',
+    'visiinias/kisinia_cha_kujiramba.png',
+    'visiinias/kisinia_cha_mzuka.png',
+    'visiinias/kisinia_cha_poaz.png',
+    'visiinias/kisinia_cha_washkaji.png',
+    'visiinias/Image_fx_11.png',
+    'visiinias/Image_fx_7.png',
+]
+
+AUTO_VISINIA_IMAGE_BY_NAME = {
+    'kisinia cha kushiba': 'visiinias/kisinia_cha_kushiba.png',
+    'kisinia cha kujiramba': 'visiinias/kisinia_cha_kujiramba.png',
+    'kisinia cha mzuka': 'visiinias/kisinia_cha_mzuka.png',
+    'kisinia cha poaz': 'visiinias/kisinia_cha_poaz.png',
+    'kisinia cha washkaji': 'visiinias/kisinia_cha_washkaji.png',
+}
+
+
+def pick_auto_media_path(options, seed):
+    if not options:
+        return None
+    text = str(seed or '')
+    value = 0
+    for index, char in enumerate(text):
+        value += (index + 1) * ord(char)
+    return options[value % len(options)]
+
+
+def pick_visinia_image_by_name(name):
+    key = str(name or '').strip().lower()
+    return AUTO_VISINIA_IMAGE_BY_NAME.get(key)
+
 
 class RelativeImageField(serializers.ImageField):
     """Return relative media path while keeping field writable for uploads."""
@@ -55,7 +96,16 @@ class RestaurantSerializer(serializers.ModelSerializer):
         return f"/api/restaurants/{obj.id}/logo_file/"
 
     def create(self, validated_data):
-        return super().create(validated_data)
+        # If logo not provided, use bundled Kisinia sample logos.
+        logo = validated_data.get('logo')
+        restaurant = super().create(validated_data)
+        if not logo:
+            restaurant.logo = pick_auto_media_path(
+                AUTO_RESTAURANT_LOGOS,
+                f"{restaurant.owner_id}-{restaurant.name}-{restaurant.id}",
+            )
+            restaurant.save(update_fields=['logo'])
+        return restaurant
 
 class VisioniaSerializer(serializers.ModelSerializer):
     image = RelativeImageField(required=False, allow_null=True)
@@ -72,7 +122,16 @@ class VisioniaSerializer(serializers.ModelSerializer):
         return f"/api/visiinias/{obj.id}/image_file/"
 
     def create(self, validated_data):
-        return super().create(validated_data)
+        # If image not provided, use bundled Kisinia sample food images.
+        image = validated_data.get('image')
+        visinia = super().create(validated_data)
+        if not image:
+            visinia.image = pick_visinia_image_by_name(visinia.name) or pick_auto_media_path(
+                AUTO_VISINIA_IMAGES,
+                f"{visinia.restaurant_id}-{visinia.name}-{visinia.id}",
+            )
+            visinia.save(update_fields=['image'])
+        return visinia
 
 
 class BookingItemSerializer(serializers.ModelSerializer):
