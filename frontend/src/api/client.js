@@ -47,10 +47,12 @@ export function buildImageUrl(path) {
     }
     return path;
   }
-  // path already starts with /media/
-  if (path.startsWith('/')) return `${API_HOST}${path}`;
-  // otherwise assume it's a relative media path
-  return `${API_HOST}/media/${path}`;
+  // For local presentation reliability, serve media from frontend public first.
+  // Files are mirrored under frontend/public/media.
+  if (path.startsWith('/media/')) return path;
+  if (path.startsWith('/')) return path;
+  // relative media path (e.g. "visiinias/foo.jpg")
+  return `/media/${path}`;
 }
 
 const apiClient = axios.create({
