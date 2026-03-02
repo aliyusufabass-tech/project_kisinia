@@ -229,7 +229,7 @@ export default function CustomerDashboard() {
 
   const getRestaurantImageData = (restaurant) => {
     const key = `restaurant-${restaurant.id}`;
-    const primaryPath = restaurant.logo_file_url || restaurant.logo;
+    const primaryPath = restaurant.logo || restaurant.logo_file_url;
     const fallbackPath = pickAutoImage(AUTO_RESTAURANT_IMAGES, `${restaurant.id}-${restaurant.name}`);
     const usePrimary = Boolean(primaryPath) && !failedImages[key];
     const srcPath = usePrimary ? primaryPath : fallbackPath;
@@ -244,7 +244,7 @@ export default function CustomerDashboard() {
 
   const getVisiniaImageData = (visinia) => {
     const key = `visinia-${visinia.id}`;
-    const primaryPath = visinia.image_file_url || visinia.image;
+    const primaryPath = visinia.image || visinia.image_file_url;
     const fallbackPath = pickAutoImage(AUTO_MENU_IMAGES, `${visinia.id}-${visinia.name}`);
     const usePrimary = Boolean(primaryPath) && !failedImages[key];
     const srcPath = usePrimary ? primaryPath : fallbackPath;

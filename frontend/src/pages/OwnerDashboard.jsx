@@ -381,9 +381,9 @@ export default function OwnerDashboard() {
                   {restaurants.map(restaurant => (
                     <div key={restaurant.id} className="restaurant-card">
                       <div className="card-image">
-                        {(restaurant.logo_file_url || restaurant.logo) && !failedImages[`restaurant-${restaurant.id}`] ? (
+                        {(restaurant.logo || restaurant.logo_file_url) && !failedImages[`restaurant-${restaurant.id}`] ? (
                           <img
-                            src={buildImageUrl(restaurant.logo_file_url || restaurant.logo)}
+                            src={buildImageUrl(restaurant.logo || restaurant.logo_file_url)}
                             alt={restaurant.name}
                             onError={() => setFailedImages((prev) => ({ ...prev, [`restaurant-${restaurant.id}`]: true }))}
                           />
@@ -468,9 +468,9 @@ export default function OwnerDashboard() {
                   {visiinias.map(visinia => (
                     <div key={visinia.id} className="item-card">
                       <div className="card-image">
-                        {(visinia.image_file_url || visinia.image) && !failedImages[`visinia-${visinia.id}`] ? (
+                        {(visinia.image || visinia.image_file_url) && !failedImages[`visinia-${visinia.id}`] ? (
                           <img
-                            src={buildImageUrl(visinia.image_file_url || visinia.image)}
+                            src={buildImageUrl(visinia.image || visinia.image_file_url)}
                             alt={visinia.name}
                             onError={() => setFailedImages((prev) => ({ ...prev, [`visinia-${visinia.id}`]: true }))}
                           />
