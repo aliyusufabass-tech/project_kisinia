@@ -5,7 +5,10 @@ import { buildImageUrl } from '../api/client';
 import './AdminDashboard.css';
 
 const RESTAURANT_LOGO_OPTIONS = [
-  
+  'restaurants/Image_fx_3.png',
+  'restaurants/Image_fx_4.png',
+  'restaurants/Image_fx_9.png',
+  'restaurants/al_noor_food_beverage_logo.png',
   'restaurants/poaz_logo.jpg',
   'restaurants/taste_me.jpeg',
 ];

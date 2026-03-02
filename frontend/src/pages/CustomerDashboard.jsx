@@ -8,6 +8,7 @@ const AUTO_RESTAURANT_IMAGES = [
   '/media/restaurants/Image_fx_3.png',
   '/media/restaurants/Image_fx_4.png',
   '/media/restaurants/Image_fx_9.png',
+  '/media/restaurants/al_noor_food_beverage_logo.png',
   '/media/restaurants/poaz_logo.jpg',
   '/media/restaurants/taste_me.jpeg',
 ];

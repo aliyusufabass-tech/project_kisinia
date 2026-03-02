@@ -8,6 +8,7 @@ AUTO_RESTAURANT_LOGOS = [
     'restaurants/Image_fx_3.png',
     'restaurants/Image_fx_4.png',
     'restaurants/Image_fx_9.png',
+    'restaurants/al_noor_food_beverage_logo.png',
     'restaurants/poaz_logo.jpg',
     'restaurants/taste_me.jpeg',
 ]
@@ -18,8 +19,7 @@ AUTO_VISINIA_IMAGES = [
     'visiinias/kisinia_cha_mzuka.png',
     'visiinias/kisinia_cha_poaz.png',
     'visiinias/kisinia_cha_washkaji.png',
-    'visiinias/Image_fx_11.png',
-    'visiinias/Image_fx_7.png',
+    'visiinias/food-bg.jpg.jpg',
 ]
 
 AUTO_VISINIA_IMAGE_BY_NAME = {

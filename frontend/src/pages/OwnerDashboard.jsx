@@ -8,18 +8,18 @@ const RESTAURANT_LOGO_OPTIONS = [
   'restaurants/Image_fx_3.png',
   'restaurants/Image_fx_4.png',
   'restaurants/Image_fx_9.png',
+  'restaurants/al_noor_food_beverage_logo.png',
   'restaurants/poaz_logo.jpg',
   'restaurants/taste_me.jpeg',
 ];
 
 const VISINIA_IMAGE_OPTIONS = [
-  'visiinias/kisinia_cha_kushiba.png',
-  'visiinias/kisinia_cha_kujiramba.png',
-  'visiinias/kisinia_cha_mzuka.png',
-  'visiinias/kisinia_cha_poaz.png',
-  'visiinias/kisinia_cha_washkaji.png',
-  'visiinias/Image_fx_11.png',
-  'visiinias/Image_fx_7.png',
+  { value: 'visiinias/kisinia_cha_kushiba.png', label: 'Kisinia Signature Bowl' },
+  { value: 'visiinias/kisinia_cha_kujiramba.png', label: 'Spiced Rice Bowl' },
+  { value: 'visiinias/kisinia_cha_mzuka.png', label: 'Seafood Rice Bowl' },
+  { value: 'visiinias/kisinia_cha_poaz.png', label: 'Lobster Seafood Bowl' },
+  { value: 'visiinias/kisinia_cha_washkaji.png', label: 'Kisinia Group Platter' },
+  { value: 'visiinias/food-bg.jpg.jpg', label: 'Classic Food Plate' },
 ];
 
 function imageOptionLabel(path) {
@@ -672,7 +672,7 @@ export default function OwnerDashboard() {
                     style={{ marginTop: 8, width: '100%', maxHeight: 140, objectFit: 'cover', borderRadius: 8 }}
                   />
                 )}
-                <p className="auto-image-note">Chagua logo kutoka picha zilizopo au acha current.</p>
+                <p className="auto-image-note">Select a logo from available images or keep the current one.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowEditRestaurant(false)}>
@@ -750,9 +750,9 @@ export default function OwnerDashboard() {
                   value={visioniaData.image_choice}
                   onChange={(e) => setVisioniaData({ ...visioniaData, image_choice: e.target.value })}
                 >
-                  <option value="__auto__">Auto choose Kisinia image</option>
-                  {VISINIA_IMAGE_OPTIONS.map((path) => (
-                    <option key={path} value={path}>{imageOptionLabel(path)}</option>
+                  <option value="__auto__">Auto choose image</option>
+                  {VISINIA_IMAGE_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
                   ))}
                 </select>
                 {(visioniaData.image_choice && visioniaData.image_choice !== '__auto__') && (
@@ -762,7 +762,7 @@ export default function OwnerDashboard() {
                     style={{ marginTop: 8, width: '100%', maxHeight: 160, objectFit: 'cover', borderRadius: 8 }}
                   />
                 )}
-                <p className="auto-image-note">Chagua picha unayotaka kutoka picha zilizopo.</p>
+                <p className="auto-image-note">Select an image from the available menu images.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowAddVisinia(false)}>
@@ -841,9 +841,9 @@ export default function OwnerDashboard() {
                   onChange={(e) => setVisioniaData({ ...visioniaData, image_choice: e.target.value })}
                 >
                   <option value="">Keep current image</option>
-                  <option value="__auto__">Auto choose Kisinia image</option>
-                  {VISINIA_IMAGE_OPTIONS.map((path) => (
-                    <option key={path} value={path}>{imageOptionLabel(path)}</option>
+                  <option value="__auto__">Auto choose image</option>
+                  {VISINIA_IMAGE_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
                   ))}
                 </select>
                 {(visioniaData.image_choice && visioniaData.image_choice !== '__auto__') && (
@@ -853,7 +853,7 @@ export default function OwnerDashboard() {
                     style={{ marginTop: 8, width: '100%', maxHeight: 160, objectFit: 'cover', borderRadius: 8 }}
                   />
                 )}
-                <p className="auto-image-note">Chagua picha mpya au acha current.</p>
+                <p className="auto-image-note">Select a new image or keep the current one.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-secondary" onClick={() => setShowEditVisinia(false)}>
