@@ -5,12 +5,9 @@ import { buildImageUrl } from '../api/client';
 import './OwnerDashboard.css';
 
 const RESTAURANT_LOGO_OPTIONS = [
-  'restaurants/Image_fx_3.png',
-  'restaurants/Image_fx_4.png',
-  'restaurants/Image_fx_9.png',
-  'restaurants/al_noor_food_beverage_logo.png',
-  'restaurants/poaz_logo.jpg',
-  'restaurants/taste_me.jpeg',
+  { value: 'restaurants/poaz_logo.jpg', label: 'Poaz Logo' },
+  { value: 'restaurants/taste_me.jpeg', label: 'Taste Me Logo' },
+  { value: 'restaurants/al_noor_food_beverage_logo.png', label: 'AL NOOR Food & Beverage Logo' },
 ];
 
 const VISINIA_IMAGE_OPTIONS = [
@@ -21,10 +18,6 @@ const VISINIA_IMAGE_OPTIONS = [
   { value: 'visiinias/kisinia_cha_washkaji.png', label: 'Kisinia Group Platter' },
   { value: 'visiinias/food-bg.jpg.jpg', label: 'Classic Food Plate' },
 ];
-
-function imageOptionLabel(path) {
-  return path.split('/').pop().replace(/\.[^.]+$/, '').replace(/_/g, ' ');
-}
 
 export default function OwnerDashboard() {
   const navigate = useNavigate();
@@ -660,9 +653,9 @@ export default function OwnerDashboard() {
                   onChange={(e) => setFormData({ ...formData, logo_choice: e.target.value })}
                 >
                   <option value="">Keep current logo</option>
-                  <option value="__auto__">Auto choose Kisinia logo</option>
-                  {RESTAURANT_LOGO_OPTIONS.map((path) => (
-                    <option key={path} value={path}>{imageOptionLabel(path)}</option>
+                  <option value="__auto__">Auto choose logo</option>
+                  {RESTAURANT_LOGO_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
                   ))}
                 </select>
                 {(formData.logo_choice && formData.logo_choice !== '__auto__') && (

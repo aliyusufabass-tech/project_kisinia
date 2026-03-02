@@ -5,15 +5,10 @@ import { buildImageUrl } from '../api/client';
 import './AdminDashboard.css';
 
 const RESTAURANT_LOGO_OPTIONS = [
-  
-  'restaurants/al_noor_food_beverage_logo.png',
-  'restaurants/poaz_logo.jpg',
-  'restaurants/taste_me.jpeg',
+  { value: 'restaurants/poaz_logo.jpg', label: 'Poaz Logo' },
+  { value: 'restaurants/taste_me.jpeg', label: 'Taste Me Logo' },
+  { value: 'restaurants/al_noor_food_beverage_logo.png', label: 'AL NOOR Food & Beverage Logo' },
 ];
-
-function imageOptionLabel(path) {
-  return path.split('/').pop().replace(/\.[^.]+$/, '').replace(/_/g, ' ');
-}
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -44,7 +39,6 @@ export default function AdminDashboard() {
   });
   const [restaurantForm, setRestaurantForm] = useState({
     name: '',
-    description: '',
     address: '',
     phone: '',
     owner_id: '',
@@ -148,7 +142,7 @@ export default function AdminDashboard() {
     try {
       await restaurantAPI.create({
         name: restaurantForm.name,
-        description: restaurantForm.description || '',
+        description: '',
         address: restaurantForm.address,
         phone: restaurantForm.phone,
         owner_id: restaurantForm.owner_id,
@@ -158,7 +152,6 @@ export default function AdminDashboard() {
       setShowAddRestaurant(false);
       setRestaurantForm({
         name: '',
-        description: '',
         address: '',
         phone: '',
         owner_id: '',
@@ -758,21 +751,14 @@ export default function AdminDashboard() {
                     </option>
                   ))}
                 </select>
-                <textarea
-                  name="description"
-                  placeholder="Description (optional)"
-                  value={restaurantForm.description}
-                  onChange={handleRestaurantInputChange}
-                  rows={3}
-                />
                 <select
                   name="logo_choice"
                   value={restaurantForm.logo_choice}
                   onChange={handleRestaurantInputChange}
                 >
-                  <option value="__auto__">Auto choose Kisinia logo</option>
-                  {RESTAURANT_LOGO_OPTIONS.map((path) => (
-                    <option key={path} value={path}>{imageOptionLabel(path)}</option>
+                  <option value="__auto__">Auto choose logo</option>
+                  {RESTAURANT_LOGO_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
                   ))}
                 </select>
                 {restaurantForm.logo_choice && restaurantForm.logo_choice !== '__auto__' && (
@@ -782,7 +768,7 @@ export default function AdminDashboard() {
                     style={{ marginTop: 8, width: '100%', maxHeight: 140, objectFit: 'cover', borderRadius: 8 }}
                   />
                 )}
-                <p className="helper-text">Choose your logo of restaurant.</p>
+                <p className="helper-text">Select one of the 3 logo options.</p>
               </div>
               <div className="modal-actions">
                 <button type="button" className="btn-primary" onClick={() => setShowAddRestaurant(false)}>
