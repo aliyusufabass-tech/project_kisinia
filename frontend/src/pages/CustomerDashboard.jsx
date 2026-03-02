@@ -11,11 +11,14 @@ const AUTO_RESTAURANT_IMAGES = [
 ];
 
 const AUTO_MENU_IMAGES = [
-  '/media/visiinias/kisinia_cha_kushiba.png',
-  '/media/visiinias/kisinia_cha_kujiramba.png',
-  '/media/visiinias/kisinia_cha_mzuka.png',
-  '/media/visiinias/kisinia_cha_poaz.png',
-  '/media/visiinias/kisinia_cha_washkaji.png',
+  '/media/visiinias/seafood_fried_rice.jpeg',
+  '/media/visiinias/seafood_rice_1pax.jpeg',
+  '/media/visiinias/kidebe_seafood_2pax.jpeg',
+  '/media/visiinias/seafood_kidebe_1pax.jpeg',
+  '/media/visiinias/goat_biriyan.jpeg',
+  '/media/visiinias/chicken_biriyan.jpeg',
+  '/media/visiinias/vegetable_biriyan.jpeg',
+  '/media/visiinias/shrimp.jpeg',
 ];
 
 function hashSeed(value) {

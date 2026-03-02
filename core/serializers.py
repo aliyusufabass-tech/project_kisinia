@@ -11,6 +11,14 @@ AUTO_RESTAURANT_LOGOS = [
 ]
 
 AUTO_VISINIA_IMAGES = [
+    'visiinias/seafood_fried_rice.jpeg',
+    'visiinias/seafood_rice_1pax.jpeg',
+    'visiinias/kidebe_seafood_2pax.jpeg',
+    'visiinias/seafood_kidebe_1pax.jpeg',
+    'visiinias/goat_biriyan.jpeg',
+    'visiinias/chicken_biriyan.jpeg',
+    'visiinias/vegetable_biriyan.jpeg',
+    'visiinias/shrimp.jpeg',
     'visiinias/kisinia_cha_kushiba.png',
     'visiinias/kisinia_cha_kujiramba.png',
     'visiinias/kisinia_cha_mzuka.png',

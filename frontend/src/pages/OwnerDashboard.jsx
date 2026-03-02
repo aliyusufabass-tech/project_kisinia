@@ -11,12 +11,14 @@ const RESTAURANT_LOGO_OPTIONS = [
 ];
 
 const VISINIA_IMAGE_OPTIONS = [
-  { value: 'visiinias/kisinia_cha_kushiba.png', label: 'Kisinia Signature Bowl' },
-  { value: 'visiinias/kisinia_cha_kujiramba.png', label: 'Spiced Rice Bowl' },
-  { value: 'visiinias/kisinia_cha_mzuka.png', label: 'Seafood Rice Bowl' },
-  { value: 'visiinias/kisinia_cha_poaz.png', label: 'Lobster Seafood Bowl' },
-  { value: 'visiinias/kisinia_cha_washkaji.png', label: 'Kisinia Group Platter' },
-  { value: 'visiinias/food-bg.jpg.jpg', label: 'Classic Food Plate' },
+  { value: 'visiinias/seafood_fried_rice.jpeg', label: 'Seafood Fried Rice' },
+  { value: 'visiinias/seafood_rice_1pax.jpeg', label: 'Seafood Rice (1 Pax)' },
+  { value: 'visiinias/kidebe_seafood_2pax.jpeg', label: 'Kidebe Seafood (2 Pax)' },
+  { value: 'visiinias/seafood_kidebe_1pax.jpeg', label: 'Seafood Kidebe (1 Pax)' },
+  { value: 'visiinias/goat_biriyan.jpeg', label: 'Goat Biryani' },
+  { value: 'visiinias/chicken_biriyan.jpeg', label: 'Chicken Biryani' },
+  { value: 'visiinias/vegetable_biriyan.jpeg', label: 'Vegetable Biryani' },
+  { value: 'visiinias/shrimp.jpeg', label: 'Shrimp Rice Plate' },
 ];
 
 export default function OwnerDashboard() {
